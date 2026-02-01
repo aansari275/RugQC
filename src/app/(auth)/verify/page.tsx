@@ -17,7 +17,9 @@ export default function VerifyPage() {
           return;
         }
         const storedEmail = window.localStorage.getItem("inspectra_email");
-        const email = storedEmail || window.prompt("Confirm your email") || "";
+        const params = new URLSearchParams(window.location.search);
+        const paramEmail = params.get("email");
+        const email = storedEmail || paramEmail || window.prompt("Confirm your email") || "";
         await signInWithEmailLink(auth, email, window.location.href);
         window.localStorage.removeItem("inspectra_email");
         setStatus("success");

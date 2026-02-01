@@ -13,7 +13,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     try {
-      const url = `${process.env.NEXT_PUBLIC_APP_URL}/verify`;
+      const url = `${process.env.NEXT_PUBLIC_APP_URL}/verify?email=${encodeURIComponent(email)}`;
       await sendSignInLinkToEmail(auth, email, {
         url,
         handleCodeInApp: true,
