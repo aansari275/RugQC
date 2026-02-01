@@ -11,7 +11,7 @@ export default function Home() {
         </nav>
         <a
           className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white"
-          href="#cta"
+          href="/login"
         >
           Start free
         </a>
@@ -21,10 +21,10 @@ export default function Home() {
         <section className="mx-auto w-full max-w-6xl px-6 pb-16 pt-10">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-                Quality inspection SaaS for exporters
-              </p>
-              <h1 className="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-600">
+                Quality inspection OS for exporters
+              </span>
+              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                 Stop reviewing 50 reports to find 3 problems.
               </h1>
               <p className="mt-4 text-lg text-zinc-600">
@@ -34,7 +34,7 @@ export default function Home() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <a
                   className="rounded-full bg-zinc-900 px-5 py-3 text-sm font-medium text-white"
-                  href="#cta"
+                  href="/login"
                 >
                   Start free
                 </a>
@@ -45,14 +45,31 @@ export default function Home() {
                   See pricing
                 </a>
               </div>
+              <div className="mt-6 grid grid-cols-3 gap-3 text-center text-sm">
+                <div className="rounded-2xl border border-zinc-200 p-3">
+                  <div className="text-xl font-semibold">3–6x</div>
+                  <div className="text-zinc-500">Faster decisions</div>
+                </div>
+                <div className="rounded-2xl border border-zinc-200 p-3">
+                  <div className="text-xl font-semibold">60%</div>
+                  <div className="text-zinc-500">Less review time</div>
+                </div>
+                <div className="rounded-2xl border border-zinc-200 p-3">
+                  <div className="text-xl font-semibold">1‑click</div>
+                  <div className="text-zinc-500">Buyer PDF</div>
+                </div>
+              </div>
               <p className="mt-4 text-sm text-zinc-500">
                 Trusted by exporter teams in Bhadohi, Jaipur, Panipat.
               </p>
             </div>
             <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-6">
-              <div className="mb-4 text-sm font-medium text-zinc-500">Owner Dashboard</div>
+              <div className="mb-4 flex items-center justify-between text-sm">
+                <span className="font-medium text-zinc-500">Owner Dashboard</span>
+                <span className="text-xs text-zinc-400">Live preview</span>
+              </div>
               <div className="space-y-4">
-                <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+                <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-red-600">🔴 Needs decision</span>
                     <span className="text-xs text-zinc-500">Final • Today</span>
@@ -83,6 +100,16 @@ export default function Home() {
                     Passed AQL, minor binding issue flagged for caution.
                   </p>
                 </div>
+                <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-emerald-600">🟢 Clear</span>
+                    <span className="text-xs text-zinc-500">Inline • Yesterday</span>
+                  </div>
+                  <h3 className="mt-2 text-sm font-semibold">EM‑119 • IKEA</h3>
+                  <p className="mt-1 text-sm text-zinc-600">
+                    All checks passed. Ready to ship.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -96,6 +123,20 @@ export default function Home() {
                 Owners only see red and amber inspections. AI summarizes every report in
                 3–6 lines so decisions take seconds, not hours.
               </p>
+              <div className="mt-6 grid gap-3 text-sm text-zinc-600">
+                <div className="flex items-start gap-3">
+                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-zinc-900" />
+                  <p>Auto‑hide green inspections by default.</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-zinc-900" />
+                  <p>AI decision notes ready to share with buyers.</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-zinc-900" />
+                  <p>Every report becomes a clean, branded PDF.</p>
+                </div>
+              </div>
             </div>
             <div className="grid gap-4">
               <div className="rounded-2xl border border-zinc-200 p-4">
@@ -108,6 +149,12 @@ export default function Home() {
                 <p className="text-sm font-semibold">Buyer‑ready PDFs</p>
                 <p className="mt-1 text-sm text-zinc-600">
                   Clean, branded reports in one click.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-zinc-200 p-4">
+                <p className="text-sm font-semibold">Role‑based views</p>
+                <p className="mt-1 text-sm text-zinc-600">
+                  Inspectors see checklists, owners see decisions.
                 </p>
               </div>
             </div>
@@ -199,22 +246,20 @@ export default function Home() {
             <p className="mt-2 text-zinc-600">
               See only what matters. Decide in 10 seconds.
             </p>
-            <form
-              className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row"
-              action="mailto:abdulansari@easternmills.com"
-              method="post"
-            >
-              <input
-                name="email"
-                type="email"
-                required
-                className="w-full max-w-xs rounded-full border border-zinc-200 px-4 py-2 text-sm"
-                placeholder="you@company.com"
-              />
-              <button className="rounded-full bg-zinc-900 px-5 py-2 text-sm font-medium text-white">
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                className="rounded-full bg-zinc-900 px-5 py-2 text-sm font-medium text-white"
+                href="/login"
+              >
                 Start free
-              </button>
-            </form>
+              </a>
+              <a
+                className="rounded-full border border-zinc-200 px-5 py-2 text-sm font-medium text-zinc-700"
+                href="mailto:abdulansari@easternmills.com?subject=Inspectra%20Demo"
+              >
+                Request demo
+              </a>
+            </div>
           </div>
         </section>
       </main>
