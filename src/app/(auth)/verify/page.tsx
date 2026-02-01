@@ -1,27 +1,50 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+import { auth } from "../../../lib/firebase";
+
 export default function VerifyPage() {
+  const [status, setStatus] = useState<"checking" | "success" | "error">("checking");
+  const [message, setMessage] = useState<string>("Verifying link...");
+
+  useEffect(() => {
+    const run = async () => {
+      try {
+        if (!isSignInWithEmailLink(auth, window.location.href)) {
+          setStatus("error");
+          setMessage("Invalid or expired link.");
+          return;
+        }
+        const storedEmail = window.localStorage.getItem("inspectra_email");
+        const email = storedEmail || window.prompt("Confirm your email") || "";
+        await signInWithEmailLink(auth, email, window.location.href);
+        window.localStorage.removeItem("inspectra_email");
+        setStatus("success");
+        setMessage("Logged in. You can close this page.");
+      } catch (err: any) {
+        setStatus("error");
+        setMessage(err?.message || "Verification failed");
+      }
+    };
+    run();
+  }, []);
+
   return (
     <div className="min-h-screen bg-white text-zinc-900">
       <div className="mx-auto flex min-h-screen w-full max-w-md items-center px-6">
         <div className="w-full rounded-3xl border border-zinc-200 p-8">
-          <h1 className="text-2xl font-semibold">Enter OTP</h1>
-          <p className="mt-2 text-sm text-zinc-600">
-            We sent a 6‑digit code to your email.
+          <h1 className="text-2xl font-semibold">Verify</h1>
+          <p
+            className={`mt-3 text-sm ${
+              status === "success" ? "text-emerald-600" : status === "error" ? "text-red-600" : "text-zinc-600"
+            }`}
+          >
+            {message}
           </p>
-          <form className="mt-6 space-y-4">
-            <input
-              type="text"
-              inputMode="numeric"
-              placeholder="123456"
-              className="w-full rounded-xl border border-zinc-200 px-4 py-3 text-sm tracking-[0.3em]"
-            />
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-zinc-900 px-4 py-3 text-sm font-medium text-white"
-            >
-              Verify
-            </button>
-          </form>
-          <button className="mt-4 text-xs text-zinc-500">Resend code</button>
+          <a href="/owner" className="mt-6 inline-block text-sm text-zinc-600 underline">
+            Go to dashboard
+          </a>
         </div>
       </div>
     </div>
