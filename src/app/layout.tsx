@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Inspectra - AI-Powered QC Inspection Platform",
+  title: "RugQC - AI-Powered QC Inspection Platform",
   description:
-    "Stop reviewing 50 reports to find 3 problems. Inspectra shows you only the inspections that need your attention, with AI-generated summaries and risk scores.",
+    "Stop reviewing 50 reports to find 3 problems. RugQC shows you only the inspections that need your attention, with AI-generated summaries and risk scores.",
   keywords: [
     "QC inspection",
     "quality control",
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     "inspection software",
     "quality management",
   ],
-  authors: [{ name: "Inspectra" }],
+  authors: [{ name: "RugQC" }],
   openGraph: {
-    title: "Inspectra - AI-Powered QC Inspection Platform",
+    title: "RugQC - AI-Powered QC Inspection Platform",
     description: "Stop reviewing 50 reports to find 3 problems. Exception-only workflow for busy owners.",
     type: "website",
   },

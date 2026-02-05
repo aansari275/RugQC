@@ -25,7 +25,7 @@ export default function Home() {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600">
               <ClipboardCheck className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-bold">Inspectra</span>
+            <span className="text-xl font-bold">RugQC</span>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium text-zinc-600 md:flex">
             <a className="hover:text-emerald-600 transition-colors" href="#features">Features</a>
@@ -72,7 +72,7 @@ export default function Home() {
                   to find 3 problems.
                 </h1>
                 <p className="mt-6 text-lg text-zinc-600 leading-relaxed">
-                  Inspectra shows owners only the inspections that need attention — with AI summaries,
+                  RugQC shows owners only the inspections that need attention — with AI summaries,
                   risk scores, and buyer-ready PDFs. Make decisions in seconds, not hours.
                 </p>
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -465,7 +465,7 @@ export default function Home() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600">
                 <ClipboardCheck className="h-4 w-4 text-white" />
               </div>
-              <span className="font-bold">Inspectra</span>
+              <span className="font-bold">RugQC</span>
             </div>
             <div className="flex gap-8 text-sm text-zinc-500">
               <a href="#" className="hover:text-emerald-600 transition-colors">Privacy</a>
@@ -473,7 +473,7 @@ export default function Home() {
               <a href="#" className="hover:text-emerald-600 transition-colors">Contact</a>
             </div>
             <div className="text-sm text-zinc-400">
-              © {new Date().getFullYear()} Inspectra. All rights reserved.
+              © {new Date().getFullYear()} RugQC. All rights reserved.
             </div>
           </div>
         </div>

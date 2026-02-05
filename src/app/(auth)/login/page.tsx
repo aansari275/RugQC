@@ -130,7 +130,7 @@ export default function LoginPage() {
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-500 shadow-lg">
             <ClipboardCheck className="h-6 w-6 text-white" />
           </div>
-          <span className="text-2xl font-bold text-zinc-900">Inspectra</span>
+          <span className="text-2xl font-bold text-zinc-900">RugQC</span>
         </div>
 
         {/* Card */}
@@ -142,7 +142,7 @@ export default function LoginPage() {
             <p className="mt-2 text-sm text-zinc-600">
               {isSignUp
                 ? "Start your 15-inspection free trial"
-                : "Sign in to your Inspectra account"}
+                : "Sign in to your RugQC account"}
             </p>
           </div>
 
@@ -275,7 +275,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="mt-8 text-xs text-zinc-500 text-center">
-          By continuing, you agree to Inspectra&apos;s{" "}
+          By continuing, you agree to RugQC&apos;s{" "}
           <a href="#" className="underline hover:text-zinc-700">
             Terms of Service
           </a>{" "}

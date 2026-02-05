@@ -46,7 +46,7 @@ function WelcomeStep({ onNext }: Omit<StepProps, "formData" | "setFormData" | "i
       <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-500 shadow-lg">
         <ClipboardCheck className="h-8 w-8 text-white" />
       </div>
-      <h1 className="mt-6 text-2xl font-bold text-zinc-900">Welcome to Inspectra</h1>
+      <h1 className="mt-6 text-2xl font-bold text-zinc-900">Welcome to RugQC</h1>
       <p className="mt-2 text-zinc-500">
         Let&apos;s set up your account in just a few steps.
       </p>

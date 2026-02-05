@@ -1,4 +1,4 @@
-# Inspectra - QC Inspection SaaS for Indian Manufacturers
+# RugQC - QC Inspection SaaS for Rug & Carpet Manufacturers
 
 ## Overview
 QC inspection SaaS targeting Indian textile mills, rug/carpet manufacturers, and exporters. Enables factory inspections with automated reports, AI-powered summaries, and exception-based owner dashboards.
@@ -12,11 +12,11 @@ QC inspection SaaS targeting Indian textile mills, rug/carpet manufacturers, and
 - **Deployment:** Netlify
 
 ## Firebase Project
-- **Project ID:** inspectra-app
+- **Project ID:** inspectra-app (legacy name)
 - **Console:** https://console.firebase.google.com/project/inspectra-app
 
 ## GitHub Repo
-- **URL:** https://github.com/aansari275/Inspectra.git
+- **URL:** https://github.com/aansari275/RugQC.git
 
 ## Key Routes
 

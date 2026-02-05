@@ -114,7 +114,7 @@ export function DashboardSidebar() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500">
               <ClipboardList className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-zinc-900">Inspectra</span>
+            <span className="font-semibold text-zinc-900">RugQC</span>
           </Link>
           <Button
             variant="ghost"
