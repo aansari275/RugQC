@@ -3,3 +3,10 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Proxy Firebase Auth handler so OAuth consent shows rugqc.netlify.app
+[[redirects]]
+  from = "/__/auth/*"
+  to = "https://inspectra-app.firebaseapp.com/__/auth/:splat"
+  status = 200
+  force = true
