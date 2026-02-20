@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ClipboardCheck, ArrowRight, Camera, Mail, Share2, TrendingUp, Download, FileText, Zap, Tags, Eye, ShieldCheck, ImagePlus, Calculator } from "lucide-react";
+import { ClipboardCheck, ArrowRight, Camera, Mail, Share2, TrendingUp, Download, FileText, Zap, Tags, Eye, ShieldCheck, ImagePlus, Calculator, Check } from "lucide-react";
 
 export default function Home() {
   return (
@@ -441,40 +441,124 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Simple pricing */}
+        {/* Pricing */}
         <section className="bg-zinc-50 py-20 md:py-28">
-          <div className="mx-auto max-w-3xl px-6 text-center">
-            <h2 className="text-3xl font-bold md:text-4xl">Simple pricing</h2>
-            <p className="mt-4 text-lg text-zinc-500">
-              Start free. Upgrade when you need more.
-            </p>
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold md:text-4xl">Simple, transparent pricing</h2>
+              <p className="mt-4 text-lg text-zinc-500">
+                Every plan includes all features. Only inspection volume differs.
+              </p>
+            </div>
 
-            <div className="mt-12 rounded-2xl border border-zinc-200 bg-white p-8 text-left shadow-sm">
-              <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <div className="text-sm font-medium text-emerald-600">Free to start</div>
-                  <div className="mt-2 text-4xl font-bold">15 inspections/mo</div>
-                  <p className="mt-2 text-zinc-500">
-                    Full features. No credit card. No time limit.
-                  </p>
+            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {/* Free */}
+              <div className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold">Free</h3>
+                  <div className="mt-3 flex items-baseline gap-1">
+                    <span className="text-4xl font-bold">₹0</span>
+                  </div>
+                  <p className="mt-2 text-sm text-zinc-500">15 inspections/mo</p>
                 </div>
+                <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
+                </ul>
                 <Link
                   href="/login"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-8 py-4 text-base font-semibold text-white hover:bg-zinc-800 transition-all shrink-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50 transition-all"
                 >
-                  Get started
-                  <ArrowRight className="h-4 w-4" />
+                  Get started free
+                </Link>
+                <p className="mt-3 text-center text-xs text-zinc-400">No credit card needed</p>
+              </div>
+
+              {/* Starter */}
+              <div className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold">Starter</h3>
+                  <div className="mt-3 flex items-baseline gap-1">
+                    <span className="text-4xl font-bold">₹2,999</span>
+                    <span className="text-sm text-zinc-500">/mo</span>
+                  </div>
+                  <p className="mt-2 text-sm text-zinc-500">100 inspections/mo</p>
+                </div>
+                <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
+                </ul>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50 transition-all"
+                >
+                  Start trial
                 </Link>
               </div>
-              <div className="mt-8 border-t border-zinc-100 pt-6">
-                <p className="text-sm text-zinc-400">
-                  Need more? Plans start at ₹6,499/mo for 100 inspections.{" "}
-                  <Link href="/login" className="text-emerald-600 hover:underline">
-                    See all plans
-                  </Link>
-                </p>
+
+              {/* Growth — Most Popular */}
+              <div className="relative flex flex-col rounded-2xl border-2 border-emerald-500 bg-white p-6 shadow-md">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-white">Most popular</span>
+                </div>
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold">Growth</h3>
+                  <div className="mt-3 flex items-baseline gap-1">
+                    <span className="text-4xl font-bold">₹6,999</span>
+                    <span className="text-sm text-zinc-500">/mo</span>
+                  </div>
+                  <p className="mt-2 text-sm text-zinc-500">300 inspections/mo</p>
+                </div>
+                <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
+                </ul>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-700 transition-all"
+                >
+                  Start trial
+                </Link>
+              </div>
+
+              {/* Pro */}
+              <div className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold">Pro</h3>
+                  <div className="mt-3 flex items-baseline gap-1">
+                    <span className="text-4xl font-bold">₹12,999</span>
+                    <span className="text-sm text-zinc-500">/mo</span>
+                  </div>
+                  <p className="mt-2 text-sm text-zinc-500">Unlimited inspections</p>
+                </div>
+                <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
+                </ul>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50 transition-all"
+                >
+                  Start trial
+                </Link>
               </div>
             </div>
+
+            <p className="mt-8 text-center text-sm text-zinc-400">
+              All plans include unlimited users. Upgrade, downgrade, or cancel anytime.
+            </p>
           </div>
         </section>
 
