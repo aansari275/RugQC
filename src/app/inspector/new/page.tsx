@@ -484,7 +484,7 @@ interface ConfirmStepProps {
 }
 
 function ConfirmStep({ formData, onBack, onCreate, isLoading }: ConfirmStepProps) {
-  const aqlResult = calculateAQLResult(formData.lotSize, 0, 0);
+  const aqlResult = calculateAQLResult(formData.lotSize, formData.aqlLevel || "II");
 
   return (
     <div className="space-y-6">
@@ -670,7 +670,7 @@ export default function NewInspectionPage() {
 
     try {
       // Calculate AQL
-      const aqlResult = calculateAQLResult(formData.lotSize, 0, 0);
+      const aqlResult = calculateAQLResult(formData.lotSize, formData.aqlLevel || "II");
 
       // Create inspection
       const inspectionId = await createInspection(orgId, {

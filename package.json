@@ -26,6 +26,8 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "firebase": "^12.8.0",
+    "firebase-admin": "^13.4.0",
+    "razorpay": "^2.9.6",
     "html2canvas": "^1.4.1",
     "idb": "^8.0.3",
     "jspdf": "^4.1.0",

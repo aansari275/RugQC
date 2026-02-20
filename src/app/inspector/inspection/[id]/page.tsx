@@ -131,14 +131,15 @@ function SubmitDialog({
 }: SubmitDialogProps) {
   const aqlResult = calculateAQLResult(
     inspection.lotSize,
-    inspection.majorDefectsFound,
-    inspection.minorDefectsFound
+    inspection.aqlLevel || "II"
   );
 
   const riskScore = calculateRiskScore(
+    inspection.criticalDefectsFound,
     inspection.majorDefectsFound,
     inspection.minorDefectsFound,
-    inspection.criticalDefectsFound
+    aqlResult.majorLimit,
+    aqlResult.minorLimit
   );
 
   const riskConfig: Record<RiskScore, { label: string; color: string; bgColor: string }> = {
@@ -164,7 +165,7 @@ function SubmitDialog({
           <div className={`rounded-xl p-4 text-center ${config.bgColor}`}>
             <p className={`text-2xl font-bold ${config.color}`}>{config.label}</p>
             <p className="mt-1 text-sm text-zinc-600">
-              {aqlResult.result === "pass" ? "Within AQL limits" : "Exceeds AQL limits"}
+              {inspection.majorDefectsFound <= aqlResult.majorLimit && inspection.minorDefectsFound <= aqlResult.minorLimit ? "Within AQL limits" : "Exceeds AQL limits"}
             </p>
           </div>
 
@@ -352,21 +353,24 @@ export default function InspectionPage() {
     setIsSubmitting(true);
 
     try {
-      const riskScore = calculateRiskScore(
-        defectCounts.major,
-        defectCounts.minor,
-        defectCounts.critical
-      );
-
       const aqlResult = calculateAQLResult(
         inspection.lotSize,
-        defectCounts.major,
-        defectCounts.minor
+        inspection.aqlLevel || "II"
       );
+
+      const riskScore = calculateRiskScore(
+        defectCounts.critical,
+        defectCounts.major,
+        defectCounts.minor,
+        aqlResult.majorLimit,
+        aqlResult.minorLimit
+      );
+
+      const aqlPassed = defectCounts.major <= aqlResult.majorLimit && defectCounts.minor <= aqlResult.minorLimit;
 
       await updateInspection(orgId, inspectionId, {
         status: "submitted",
-        result: aqlResult.result,
+        result: aqlPassed ? "pass" : "fail",
         riskScore,
         criticalDefectsFound: defectCounts.critical,
         majorDefectsFound: defectCounts.major,
