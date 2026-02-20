@@ -1,19 +1,6 @@
 import Link from "next/link";
-import {
-  ClipboardCheck,
-  CheckCircle,
-  AlertTriangle,
-  XCircle,
-  Zap,
-  FileText,
-  Shield,
-  BarChart3,
-  Clock,
-  Users,
-  ArrowRight,
-  Star,
-  Play,
-} from "lucide-react";
+import Image from "next/image";
+import { ClipboardCheck, ArrowRight, Camera, Mail, Share2, TrendingUp, Download, FileText } from "lucide-react";
 
 export default function Home() {
   return (
@@ -27,12 +14,15 @@ export default function Home() {
             </div>
             <span className="text-xl font-bold">RugQC</span>
           </Link>
-          <nav className="hidden items-center gap-8 text-sm font-medium text-zinc-600 md:flex">
-            <a className="hover:text-emerald-600 transition-colors" href="#features">Features</a>
-            <a className="hover:text-emerald-600 transition-colors" href="#how">How it works</a>
-            <a className="hover:text-emerald-600 transition-colors" href="#pricing">Pricing</a>
-          </nav>
           <div className="flex items-center gap-3">
+            <a
+              className="hidden items-center gap-1.5 text-sm font-medium text-zinc-600 hover:text-emerald-600 transition-colors md:flex"
+              href="/sample-report.pdf"
+              target="_blank"
+            >
+              <FileText className="h-4 w-4" />
+              Sample Report
+            </a>
             <Link
               className="hidden text-sm font-medium text-zinc-600 hover:text-zinc-900 md:block"
               href="/login"
@@ -40,7 +30,7 @@ export default function Home() {
               Sign in
             </Link>
             <Link
-              className="rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all"
+              className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800 transition-all"
               href="/login"
             >
               Start Free
@@ -50,415 +40,363 @@ export default function Home() {
       </header>
 
       <main>
-        {/* Hero Section */}
-        <section className="relative overflow-hidden">
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-teal-50" />
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-200/40 to-teal-200/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-cyan-200/30 to-emerald-200/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
-
-          <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-16 md:pt-24">
+        {/* Hero Section — Manager reviewing report */}
+        <section className="relative overflow-hidden bg-zinc-950">
+          <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-700">
-                  <Zap className="h-4 w-4" />
-                  AI-Powered Quality Control
-                </div>
-                <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-                  Stop reviewing{" "}
-                  <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                    50 reports
-                  </span>{" "}
-                  to find 3 problems.
+                <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl lg:text-[3.5rem]">
+                  Your inspector snaps.
+                  <br />
+                  <span className="text-emerald-400">You get the report.</span>
                 </h1>
-                <p className="mt-6 text-lg text-zinc-600 leading-relaxed">
-                  RugQC shows owners only the inspections that need attention — with AI summaries,
-                  risk scores, and buyer-ready PDFs. Make decisions in seconds, not hours.
+                <p className="mt-6 text-lg text-zinc-400 leading-relaxed max-w-md">
+                  Professional QC reports from your shop floor, delivered to your inbox.
+                  Share with buyers in one click.
                 </p>
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-7 py-3.5 text-base font-semibold text-white hover:bg-emerald-400 transition-all"
                     href="/login"
                   >
-                    Start Free Trial
+                    Try it free
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <a
-                    className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-zinc-200 bg-white px-8 py-4 text-base font-semibold text-zinc-700 hover:border-emerald-300 hover:bg-emerald-50 transition-all"
-                    href="#how"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-700 px-7 py-3.5 text-base font-semibold text-zinc-300 hover:bg-zinc-800 transition-all"
+                    href="/sample-report.pdf"
+                    target="_blank"
                   >
-                    <Play className="h-4 w-4" />
-                    See How It Works
+                    <Download className="h-4 w-4" />
+                    Download sample report
                   </a>
                 </div>
-
-                {/* Stats */}
-                <div className="mt-12 grid grid-cols-3 gap-6">
-                  <div>
-                    <div className="text-3xl font-bold text-emerald-600">3-6x</div>
-                    <div className="mt-1 text-sm text-zinc-500">Faster decisions</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-teal-600">60%</div>
-                    <div className="mt-1 text-sm text-zinc-500">Less review time</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-cyan-600">1-click</div>
-                    <div className="mt-1 text-sm text-zinc-500">Buyer PDFs</div>
-                  </div>
-                </div>
+                <p className="mt-4 text-sm text-zinc-500">
+                  15 inspections free. No credit card needed.
+                </p>
               </div>
 
-              {/* Dashboard Preview */}
+              {/* Manager on laptop */}
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+                <Image
+                  src="/images/manager-laptop.jpg"
+                  alt="Manager reviewing quality inspection report on laptop"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How it works — 3 simple steps */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold md:text-4xl">
+                Three steps. That's it.
+              </h2>
+              <p className="mt-4 text-lg text-zinc-500">
+                No training needed. If your team can use a phone camera, they can use RugQC.
+              </p>
+            </div>
+
+            <div className="mt-16 grid gap-12 md:grid-cols-3">
+              <div className="text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50">
+                  <Camera className="h-7 w-7 text-emerald-600" />
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">Snap photos</h3>
+                <p className="mt-3 text-zinc-500 leading-relaxed">
+                  Your QC inspector walks the floor, opens the app, and photographs defects as they go.
+                  Simple checklist, no complexity.
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50">
+                  <Mail className="h-7 w-7 text-emerald-600" />
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">Get your report</h3>
+                <p className="mt-3 text-zinc-500 leading-relaxed">
+                  A clean, standardized PDF lands in your inbox. Every photo, every defect,
+                  every measurement. Professional enough for any buyer.
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50">
+                  <Share2 className="h-7 w-7 text-emerald-600" />
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">Share with confidence</h3>
+                <p className="mt-3 text-zinc-500 leading-relaxed">
+                  Forward to your buyer, brand, or internal team.
+                  One consistent format that builds trust, every single time.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Sample report preview + download */}
+        <section className="bg-zinc-50 py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              {/* PDF preview mockup */}
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl blur-2xl opacity-20 scale-105" />
-                <div className="relative rounded-3xl border border-zinc-200 bg-white p-6 shadow-2xl shadow-zinc-200/50">
-                  <div className="mb-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="h-3 w-3 rounded-full bg-red-400" />
-                      <div className="h-3 w-3 rounded-full bg-amber-400" />
-                      <div className="h-3 w-3 rounded-full bg-emerald-400" />
-                    </div>
-                    <span className="text-xs font-medium text-zinc-400">Owner Dashboard</span>
+                <div className="rounded-2xl bg-white p-3 shadow-2xl shadow-zinc-200/60 border border-zinc-200">
+                  <div className="flex items-center gap-2 px-2 pb-3">
+                    <div className="h-3 w-3 rounded-full bg-red-400" />
+                    <div className="h-3 w-3 rounded-full bg-amber-400" />
+                    <div className="h-3 w-3 rounded-full bg-emerald-400" />
+                    <span className="ml-2 text-xs text-zinc-400">sample-report.pdf</span>
                   </div>
-
-                  {/* Stats row */}
-                  <div className="mb-4 grid grid-cols-4 gap-2">
-                    <div className="rounded-xl bg-red-50 p-3 text-center">
-                      <div className="text-lg font-bold text-red-600">2</div>
-                      <div className="text-[10px] text-red-600/70">Critical</div>
-                    </div>
-                    <div className="rounded-xl bg-amber-50 p-3 text-center">
-                      <div className="text-lg font-bold text-amber-600">3</div>
-                      <div className="text-[10px] text-amber-600/70">Review</div>
-                    </div>
-                    <div className="rounded-xl bg-emerald-50 p-3 text-center">
-                      <div className="text-lg font-bold text-emerald-600">45</div>
-                      <div className="text-[10px] text-emerald-600/70">Clear</div>
-                    </div>
-                    <div className="rounded-xl bg-zinc-50 p-3 text-center">
-                      <div className="text-lg font-bold text-zinc-700">50</div>
-                      <div className="text-[10px] text-zinc-500">Total</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    {/* Red card */}
-                    <div className="rounded-2xl border-l-4 border-l-red-500 bg-red-50/50 p-4">
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-red-600">
-                          <XCircle className="h-3 w-3" /> FAILED AQL
-                        </span>
-                        <span className="text-[10px] text-zinc-400">Final • Today</span>
-                      </div>
-                      <h3 className="mt-2 text-sm font-semibold">KP-220 • Pottery Barn</h3>
-                      <p className="mt-1 text-xs text-zinc-600">
-                        4 major defects found. Color variation exceeds tolerance. Recommend shade sorting.
-                      </p>
-                      <div className="mt-3 flex gap-2">
-                        <button className="rounded-full bg-zinc-900 px-3 py-1 text-xs font-medium text-white">
-                          Ship
-                        </button>
-                        <button className="rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium">
-                          Hold
-                        </button>
-                        <button className="rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium">
-                          Rework
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Amber card */}
-                    <div className="rounded-2xl border-l-4 border-l-amber-500 bg-amber-50/50 p-4">
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-600">
-                          <AlertTriangle className="h-3 w-3" /> REVIEW
-                        </span>
-                        <span className="text-[10px] text-zinc-400">Inline • Today</span>
-                      </div>
-                      <h3 className="mt-2 text-sm font-semibold">RG-445 • West Elm</h3>
-                      <p className="mt-1 text-xs text-zinc-600">
-                        Passed AQL. Minor binding issue flagged for caution.
-                      </p>
-                    </div>
-
-                    {/* Green card */}
-                    <div className="rounded-2xl border-l-4 border-l-emerald-500 bg-emerald-50/30 p-4 opacity-60">
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600">
-                          <CheckCircle className="h-3 w-3" /> PASSED
-                        </span>
-                        <span className="text-[10px] text-zinc-400">Final • Yesterday</span>
-                      </div>
-                      <h3 className="mt-2 text-sm font-semibold">EM-119 • IKEA</h3>
-                      <p className="mt-1 text-xs text-zinc-600">
-                        All checks passed. Ready to ship.
-                      </p>
-                    </div>
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-zinc-100">
+                    <iframe
+                      src="/sample-report.pdf#toolbar=0&navpanes=0"
+                      className="h-full w-full border-0"
+                      title="Sample QC Inspection Report"
+                    />
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Trusted By */}
-        <section className="border-y border-zinc-100 bg-zinc-50/50 py-8">
-          <div className="mx-auto max-w-6xl px-6">
-            <p className="text-center text-sm font-medium text-zinc-400">
-              Trusted by quality teams across India
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-8 md:gap-16 text-zinc-300">
-              {["Bhadohi", "Jaipur", "Panipat", "Mirzapur", "Varanasi"].map((city) => (
-                <span key={city} className="text-lg font-semibold">{city}</span>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section id="features" className="py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-700">
-                Features
-              </span>
-              <h2 className="mt-4 text-3xl font-bold md:text-4xl">
-                Everything owners need,{" "}
-                <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                  nothing they don't
-                </span>
-              </h2>
-              <p className="mt-4 text-lg text-zinc-600">
-                Designed for busy factory owners who need quick, confident decisions.
-              </p>
-            </div>
-
-            <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  icon: <Zap className="h-6 w-6" />,
-                  color: "from-emerald-500 to-emerald-600",
-                  title: "AI Summary",
-                  desc: "Every inspection summarized in 3-6 lines. Know immediately if action is needed.",
-                },
-                {
-                  icon: <Shield className="h-6 w-6" />,
-                  color: "from-teal-500 to-teal-600",
-                  title: "Risk Scoring",
-                  desc: "Automatic Green/Amber/Red scoring. See only exceptions by default.",
-                },
-                {
-                  icon: <FileText className="h-6 w-6" />,
-                  color: "from-cyan-500 to-cyan-600",
-                  title: "Branded PDFs",
-                  desc: "Professional, buyer-ready reports with your logo. One-click generation.",
-                },
-                {
-                  icon: <BarChart3 className="h-6 w-6" />,
-                  color: "from-blue-500 to-blue-600",
-                  title: "AQL Compliance",
-                  desc: "Built-in ANSI Z1.4-2008 sampling plans. Automatic pass/fail calculation.",
-                },
-                {
-                  icon: <Clock className="h-6 w-6" />,
-                  color: "from-violet-500 to-violet-600",
-                  title: "Quick Actions",
-                  desc: "Ship, Hold, or Rework with one tap. Add notes for your team instantly.",
-                },
-                {
-                  icon: <Users className="h-6 w-6" />,
-                  color: "from-pink-500 to-pink-600",
-                  title: "Role-Based Views",
-                  desc: "Inspectors see checklists. Owners see decisions. Everyone sees what matters.",
-                },
-              ].map((feature, i) => (
-                <div
-                  key={feature.title}
-                  className="group relative rounded-2xl border border-zinc-200 bg-white p-6 hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-100/50 transition-all"
-                >
-                  <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.color} text-white shadow-lg`}>
-                    {feature.icon}
-                  </div>
-                  <h3 className="mt-4 text-lg font-semibold">{feature.title}</h3>
-                  <p className="mt-2 text-zinc-600">{feature.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* How It Works */}
-        <section id="how" className="bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm font-medium text-emerald-400">
-                How It Works
-              </span>
-              <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">
-                From inspection to decision in{" "}
-                <span className="text-emerald-400">4 simple steps</span>
-              </h2>
-            </div>
-
-            <div className="mt-16 grid gap-6 md:grid-cols-4">
-              {[
-                { step: "01", title: "Inspector fills checklist", desc: "Mobile-first app. Works offline." },
-                { step: "02", title: "Photos & defects logged", desc: "Camera-first. Auto-compressed." },
-                { step: "03", title: "AI scores & summarizes", desc: "Risk assessed automatically." },
-                { step: "04", title: "Owner decides in seconds", desc: "Ship, Hold, or Rework." },
-              ].map((item, i) => (
-                <div key={item.step} className="relative">
-                  {i < 3 && (
-                    <div className="absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-emerald-500/50 to-transparent hidden md:block" />
-                  )}
-                  <div className="rounded-2xl border border-zinc-700 bg-zinc-800/50 p-6 backdrop-blur">
-                    <div className="text-4xl font-bold text-emerald-500/30">{item.step}</div>
-                    <h3 className="mt-4 text-lg font-semibold text-white">{item.title}</h3>
-                    <p className="mt-2 text-zinc-400">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Pricing Section */}
-        <section id="pricing" className="py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-700">
-                Pricing
-              </span>
-              <h2 className="mt-4 text-3xl font-bold md:text-4xl">
-                Start free, scale as you grow
-              </h2>
-              <p className="mt-4 text-lg text-zinc-600">
-                No hidden fees. Cancel anytime.
-              </p>
-            </div>
-
-            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  name: "Starter",
-                  price: "Free",
-                  period: "forever",
-                  desc: "15 inspections/month",
-                  features: ["Owner dashboard", "Basic reports", "1 user", "Email support"],
-                  cta: "Get Started",
-                  popular: false,
-                },
-                {
-                  name: "Growth",
-                  price: "₹6,499",
-                  period: "/month",
-                  desc: "100 inspections/month",
-                  features: ["AI summaries", "AI auto-remarks", "Branded PDFs", "5 users", "Priority support"],
-                  cta: "Start Trial",
-                  popular: true,
-                },
-                {
-                  name: "Professional",
-                  price: "₹16,499",
-                  period: "/month",
-                  desc: "500 inspections/month",
-                  features: ["Everything in Growth", "Buyer portal", "API access", "20 users", "Phone support"],
-                  cta: "Start Trial",
-                  popular: false,
-                },
-                {
-                  name: "Enterprise",
-                  price: "₹41,499",
-                  period: "/month",
-                  desc: "Unlimited inspections",
-                  features: ["Everything in Pro", "Multi-factory", "Custom workflows", "Unlimited users", "Dedicated CSM"],
-                  cta: "Contact Sales",
-                  popular: false,
-                },
-              ].map((tier) => (
-                <div
-                  key={tier.name}
-                  className={`relative rounded-2xl border ${
-                    tier.popular
-                      ? "border-emerald-500 bg-gradient-to-b from-emerald-50 to-white shadow-xl shadow-emerald-100/50"
-                      : "border-zinc-200 bg-white"
-                  } p-6`}
-                >
-                  {tier.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 text-xs font-semibold text-white">
-                        <Star className="h-3 w-3" /> Most Popular
-                      </span>
-                    </div>
-                  )}
-                  <div className="text-sm font-semibold text-zinc-500">{tier.name}</div>
-                  <div className="mt-4">
-                    <span className="text-4xl font-bold">{tier.price}</span>
-                    <span className="text-zinc-500">{tier.period}</span>
-                  </div>
-                  <div className="mt-2 text-sm text-zinc-500">{tier.desc}</div>
-                  <ul className="mt-6 space-y-3">
-                    {tier.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-emerald-500" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href="/login"
-                    className={`mt-6 block rounded-full py-3 text-center text-sm font-semibold transition-all ${
-                      tier.popular
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40"
-                        : "border border-zinc-200 text-zinc-700 hover:border-emerald-300 hover:bg-emerald-50"
-                    }`}
-                  >
-                    {tier.cta}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 p-12 md:p-16">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-
-              <div className="relative text-center">
-                <h2 className="text-3xl font-bold text-white md:text-4xl">
-                  Ready to see only what matters?
+              <div>
+                <h2 className="text-3xl font-bold md:text-4xl">
+                  Reports your buyers
+                  <br />
+                  actually trust
                 </h2>
-                <p className="mt-4 text-lg text-emerald-100">
-                  Start with 15 free inspections. No credit card required.
+                <p className="mt-6 text-lg text-zinc-500 leading-relaxed">
+                  Every inspection becomes a branded, professional document. Photos, measurements,
+                  pass/fail results, all in one place. No more WhatsApp photos and Excel sheets.
                 </p>
-                <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                  <Link
-                    href="/login"
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-emerald-600 shadow-xl hover:bg-emerald-50 transition-all"
-                  >
-                    Start Free Trial
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <a
-                    href="mailto:hello@inspectra.app?subject=Demo%20Request"
-                    className="inline-flex items-center gap-2 rounded-full border-2 border-white/30 px-8 py-4 text-base font-semibold text-white hover:bg-white/10 transition-all"
-                  >
-                    Request Demo
-                  </a>
+                <ul className="mt-8 space-y-4">
+                  {[
+                    "Photos of every defect, right in the report",
+                    "Standardized format across all inspections",
+                    "Your company branding on every page",
+                    "AQL compliance built in",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100">
+                        <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                      </div>
+                      <span className="text-zinc-600">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-800 transition-all"
+                  href="/sample-report.pdf"
+                  target="_blank"
+                >
+                  <Download className="h-4 w-4" />
+                  Download sample report
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* On-the-go section with mobile image */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div className="order-2 lg:order-1">
+                <h2 className="text-3xl font-bold md:text-4xl">
+                  Review inspections
+                  <br />
+                  from anywhere
+                </h2>
+                <p className="mt-6 text-lg text-zinc-500 leading-relaxed">
+                  In a meeting, at the airport, on the factory floor. Open your phone, see the result,
+                  make the call. Ship, hold, or rework. Done in seconds.
+                </p>
+                <p className="mt-4 text-lg text-zinc-500 leading-relaxed">
+                  Your inspectors submit. You decide. No one waits.
+                </p>
+              </div>
+              <div className="relative order-1 aspect-[16/10] overflow-hidden rounded-2xl lg:order-2">
+                <Image
+                  src="/images/manager-mobile.jpg"
+                  alt="Manager checking inspection results on phone while walking through factory"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Craftsmanship / emotional section */}
+        <section className="relative py-20 md:py-28 overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src="/images/craftsman-hands.jpg"
+              alt="Craftsman hands weaving a rug on a traditional loom"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+          </div>
+
+          <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+            <h2 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl leading-tight">
+              Every rug carries someone's skill.
+              <br />
+              <span className="text-emerald-400">Your QC should honor that.</span>
+            </h2>
+            <p className="mt-6 text-lg text-zinc-300 leading-relaxed max-w-2xl mx-auto">
+              Behind every order is months of handwork. When issues arise, you need to find the root cause fast,
+              not bury it in paperwork. RugQC gives you the data to protect both quality and the people behind it.
+            </p>
+          </div>
+        </section>
+
+        {/* Analytics teaser */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-700">
+                  <TrendingUp className="h-4 w-4" />
+                  Over time
+                </div>
+                <h2 className="mt-4 text-3xl font-bold md:text-4xl">
+                  Patterns emerge.
+                  <br />
+                  Problems get solved.
+                </h2>
+                <p className="mt-6 text-lg text-zinc-500 leading-relaxed">
+                  After a few weeks of inspections, you start seeing trends. Which defects keep coming back.
+                  Which lines or shifts have issues. Which buyers have tighter standards.
+                </p>
+                <p className="mt-4 text-lg text-zinc-500 leading-relaxed">
+                  That is when RugQC becomes more than a reporting tool. It becomes your quality intelligence.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
+                <div className="text-sm font-medium text-zinc-400 mb-6">Last 30 days</div>
+                <div className="space-y-6">
+                  <div>
+                    <div className="flex items-center justify-between text-sm mb-2">
+                      <span className="text-zinc-600">Color Variation</span>
+                      <span className="font-semibold text-red-500">23 occurrences</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-zinc-100">
+                      <div className="h-2 rounded-full bg-red-400" style={{ width: "78%" }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between text-sm mb-2">
+                      <span className="text-zinc-600">Pile Height</span>
+                      <span className="font-semibold text-amber-500">14 occurrences</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-zinc-100">
+                      <div className="h-2 rounded-full bg-amber-400" style={{ width: "48%" }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between text-sm mb-2">
+                      <span className="text-zinc-600">Binding Issues</span>
+                      <span className="font-semibold text-emerald-500">6 occurrences</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-zinc-100">
+                      <div className="h-2 rounded-full bg-emerald-400" style={{ width: "20%" }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between text-sm mb-2">
+                      <span className="text-zinc-600">Corner Squareness</span>
+                      <span className="font-semibold text-emerald-500">3 occurrences</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-zinc-100">
+                      <div className="h-2 rounded-full bg-emerald-400" style={{ width: "10%" }} />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 rounded-xl bg-red-50 p-4">
+                  <p className="text-sm font-medium text-red-700">
+                    Color variation is your #1 issue this month.
+                    18 of 23 cases came from Loom Section B.
+                  </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Simple pricing */}
+        <section className="bg-zinc-50 py-20 md:py-28">
+          <div className="mx-auto max-w-3xl px-6 text-center">
+            <h2 className="text-3xl font-bold md:text-4xl">Simple pricing</h2>
+            <p className="mt-4 text-lg text-zinc-500">
+              Start free. Upgrade when you need more.
+            </p>
+
+            <div className="mt-12 rounded-2xl border border-zinc-200 bg-white p-8 text-left shadow-sm">
+              <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <div className="text-sm font-medium text-emerald-600">Free to start</div>
+                  <div className="mt-2 text-4xl font-bold">15 inspections/mo</div>
+                  <p className="mt-2 text-zinc-500">
+                    Full features. No credit card. No time limit.
+                  </p>
+                </div>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-8 py-4 text-base font-semibold text-white hover:bg-zinc-800 transition-all shrink-0"
+                >
+                  Get started
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <div className="mt-8 border-t border-zinc-100 pt-6">
+                <p className="text-sm text-zinc-400">
+                  Need more? Plans start at ₹6,499/mo for 100 inspections.{" "}
+                  <Link href="/login" className="text-emerald-600 hover:underline">
+                    See all plans
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-3xl px-6 text-center">
+            <h2 className="text-3xl font-bold md:text-4xl">
+              Your next inspection could look like this.
+            </h2>
+            <p className="mt-4 text-lg text-zinc-500">
+              Set up takes 2 minutes. Your first report is one inspection away.
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-8 py-4 text-base font-semibold text-white hover:bg-emerald-400 transition-all"
+              >
+                Start free
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-200 px-8 py-4 text-base font-semibold text-zinc-700 hover:bg-zinc-50 transition-all"
+                href="/sample-report.pdf"
+                target="_blank"
+              >
+                <Download className="h-4 w-4" />
+                See sample report
+              </a>
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-50">
+      <footer className="border-t border-zinc-200">
         <div className="mx-auto max-w-6xl px-6 py-12">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2">
@@ -467,13 +405,8 @@ export default function Home() {
               </div>
               <span className="font-bold">RugQC</span>
             </div>
-            <div className="flex gap-8 text-sm text-zinc-500">
-              <a href="#" className="hover:text-emerald-600 transition-colors">Privacy</a>
-              <a href="#" className="hover:text-emerald-600 transition-colors">Terms</a>
-              <a href="#" className="hover:text-emerald-600 transition-colors">Contact</a>
-            </div>
             <div className="text-sm text-zinc-400">
-              © {new Date().getFullYear()} RugQC. All rights reserved.
+              © {new Date().getFullYear()} RugQC. Built for the textile industry.
             </div>
           </div>
         </div>
