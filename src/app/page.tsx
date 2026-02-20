@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ClipboardCheck, ArrowRight, Camera, Mail, Share2, TrendingUp, Download, FileText } from "lucide-react";
+import { ClipboardCheck, ArrowRight, Camera, Mail, Share2, TrendingUp, Download, FileText, Zap, Tags, Eye, ShieldCheck, ImagePlus, Calculator } from "lucide-react";
 
 export default function Home() {
   return (
@@ -51,8 +51,8 @@ export default function Home() {
                   <span className="text-emerald-400">You get the report.</span>
                 </h1>
                 <p className="mt-6 text-lg text-zinc-400 leading-relaxed max-w-md">
-                  Professional QC reports from your shop floor, delivered to your inbox.
-                  Share with buyers in one click.
+                  No more going home to paste photos into Excel.
+                  Inspector submits on the shop floor, report lands in your inbox. Done.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
@@ -109,8 +109,8 @@ export default function Home() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold">Snap photos</h3>
                 <p className="mt-3 text-zinc-500 leading-relaxed">
-                  Your QC inspector walks the floor, opens the app, and photographs defects as they go.
-                  Simple checklist, no complexity.
+                  Your QC inspector opens the app on the shop floor, follows a standardized checklist,
+                  and photographs every check. No missed steps, more output per inspector.
                 </p>
               </div>
 
@@ -118,10 +118,10 @@ export default function Home() {
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50">
                   <Mail className="h-7 w-7 text-emerald-600" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold">Get your report</h3>
+                <h3 className="mt-6 text-xl font-semibold">Report in your inbox</h3>
                 <p className="mt-3 text-zinc-500 leading-relaxed">
-                  A clean, standardized PDF lands in your inbox. Every photo, every defect,
-                  every measurement. Professional enough for any buyer.
+                  The moment they submit, a branded PDF hits your inbox. Every photo, every defect,
+                  every measurement. No Excel, no WhatsApp photos, no delays.
                 </p>
               </div>
 
@@ -133,6 +133,144 @@ export default function Home() {
                 <p className="mt-3 text-zinc-500 leading-relaxed">
                   Forward to your buyer, brand, or internal team.
                   One consistent format that builds trust, every single time.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pain point callout */}
+        <section className="bg-zinc-950 py-14 md:py-16">
+          <div className="mx-auto max-w-4xl px-6">
+            <div className="grid gap-8 md:grid-cols-2 md:gap-12">
+              <div>
+                <div className="text-sm font-medium text-red-400 mb-3">Before RugQC</div>
+                <ul className="space-y-3 text-zinc-400">
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
+                    QC goes home, pastes photos into Excel, emails at midnight
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
+                    Every inspector checks different things, different way
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
+                    3 inspections a day, most time spent on paperwork
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
+                    No record of what was checked, when, or by whom
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-emerald-400 mb-3">With RugQC</div>
+                <ul className="space-y-3 text-zinc-300">
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    Report sent the moment inspection is done, from the floor
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    Standardized checklist, every inspector follows the same parameters
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    5+ inspections a day, zero paperwork
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    Every check timestamped, photo-documented, traceable
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features grid */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold md:text-4xl">
+                Built for how factories actually work
+              </h2>
+              <p className="mt-4 text-lg text-zinc-500 max-w-2xl mx-auto">
+                No complicated setup, no training manuals. Features that solve real problems on the shop floor.
+              </p>
+            </div>
+
+            <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Instant email */}
+              <div className="rounded-2xl bg-white p-7 border border-zinc-200 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50">
+                  <Zap className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">Instant report on submit</h3>
+                <p className="mt-2 text-sm text-zinc-500 leading-relaxed">
+                  The moment your inspector hits submit on the shop floor, the full PDF report lands in your inbox.
+                  No delays, no follow-ups needed.
+                </p>
+              </div>
+
+              {/* Custom defects */}
+              <div className="rounded-2xl bg-white p-7 border border-zinc-200 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50">
+                  <Tags className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">Custom defect names + photos</h3>
+                <p className="mt-2 text-sm text-zinc-500 leading-relaxed">
+                  Define your own defect categories, names, and severity levels. Attach photos to every defect found.
+                  Your terminology, your standards.
+                </p>
+              </div>
+
+              {/* Company logo */}
+              <div className="rounded-2xl bg-white p-7 border border-zinc-200 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50">
+                  <ImagePlus className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">Your logo on every report</h3>
+                <p className="mt-2 text-sm text-zinc-500 leading-relaxed">
+                  Upload your company logo once. It appears on every inspection report automatically.
+                  Professional, branded documents your buyers expect.
+                </p>
+              </div>
+
+              {/* Transparent system */}
+              <div className="rounded-2xl bg-white p-7 border border-zinc-200 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50">
+                  <Eye className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">Clear, transparent system</h3>
+                <p className="mt-2 text-sm text-zinc-500 leading-relaxed">
+                  Every inspection is timestamped, photo-documented, and tied to the inspector who submitted it.
+                  No shortcuts, no hiding. Full accountability.
+                </p>
+              </div>
+
+              {/* AQL auto-calc */}
+              <div className="rounded-2xl bg-white p-7 border border-zinc-200 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50">
+                  <Calculator className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">AQL auto-calculated</h3>
+                <p className="mt-2 text-sm text-zinc-500 leading-relaxed">
+                  Enter lot size, pick your AQL level. Sample size, accept/reject numbers, and pass/fail result
+                  are calculated automatically. No room for error.
+                </p>
+              </div>
+
+              {/* Tamper-proof */}
+              <div className="rounded-2xl bg-white p-7 border border-zinc-200 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50">
+                  <ShieldCheck className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">Tamper-proof records</h3>
+                <p className="mt-2 text-sm text-zinc-500 leading-relaxed">
+                  Once submitted, reports cannot be edited or deleted. Every photo is original, every timestamp is real.
+                  Trust the data.
                 </p>
               </div>
             </div>
@@ -169,15 +307,15 @@ export default function Home() {
                   actually trust
                 </h2>
                 <p className="mt-6 text-lg text-zinc-500 leading-relaxed">
-                  Every inspection becomes a branded, professional document. Photos, measurements,
+                  Every inspection becomes a branded, professional document with your company logo. Photos, measurements,
                   pass/fail results, all in one place. No more WhatsApp photos and Excel sheets.
                 </p>
                 <ul className="mt-8 space-y-4">
                   {[
-                    "Photos of every defect, right in the report",
-                    "Standardized format across all inspections",
-                    "Your company branding on every page",
-                    "AQL compliance built in",
+                    "Your company logo on every report",
+                    "Photos of every defect with your custom defect names",
+                    "Standardized checking parameters across all inspectors",
+                    "AQL compliance auto-calculated",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100">
