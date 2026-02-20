@@ -368,31 +368,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Craftsmanship / emotional section */}
-        <section className="relative py-20 md:py-28 overflow-hidden">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/craftsman-hands.jpg"
-              alt="Craftsman hands weaving a rug on a traditional loom"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-black/60" />
-          </div>
-
-          <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
-            <h2 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl leading-tight">
-              Every rug carries someone's skill.
-              <br />
-              <span className="text-emerald-400">Your QC should honor that.</span>
-            </h2>
-            <p className="mt-6 text-lg text-zinc-300 leading-relaxed max-w-2xl mx-auto">
-              Behind every order is months of handwork. When issues arise, you need to find the root cause fast,
-              not bury it in paperwork. RugQC gives you the data to protect both quality and the people behind it.
-            </p>
-          </div>
-        </section>
-
         {/* Analytics teaser */}
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-5xl px-6">
