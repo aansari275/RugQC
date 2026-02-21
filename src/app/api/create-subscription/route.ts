@@ -23,12 +23,10 @@ import { FieldValue } from "firebase-admin/firestore";
 // ==========================================
 
 const PLAN_ENV_MAP: Record<string, string> = {
+  starter_inr: "NEXT_PUBLIC_RAZORPAY_PLAN_STARTER_INR",
+  starter_usd: "NEXT_PUBLIC_RAZORPAY_PLAN_STARTER_USD",
   growth_inr: "NEXT_PUBLIC_RAZORPAY_PLAN_GROWTH_INR",
   growth_usd: "NEXT_PUBLIC_RAZORPAY_PLAN_GROWTH_USD",
-  professional_inr: "NEXT_PUBLIC_RAZORPAY_PLAN_PROFESSIONAL_INR",
-  professional_usd: "NEXT_PUBLIC_RAZORPAY_PLAN_PROFESSIONAL_USD",
-  enterprise_inr: "NEXT_PUBLIC_RAZORPAY_PLAN_ENTERPRISE_INR",
-  enterprise_usd: "NEXT_PUBLIC_RAZORPAY_PLAN_ENTERPRISE_USD",
 };
 
 // ==========================================
@@ -36,10 +34,9 @@ const PLAN_ENV_MAP: Record<string, string> = {
 // ==========================================
 
 function tierFromPlanKey(planKey: string): string {
+  if (planKey.startsWith("starter")) return "starter";
   if (planKey.startsWith("growth")) return "growth";
-  if (planKey.startsWith("professional")) return "professional";
-  if (planKey.startsWith("enterprise")) return "enterprise";
-  return "starter";
+  return "free";
 }
 
 // ==========================================
@@ -207,17 +204,17 @@ export async function POST(request: NextRequest) {
           ...subscriptionData,
           inspectionsUsed: 0,
           inspectionsLimit: 15,
-          usersLimit: 1,
+          usersLimit: 999999,
           usersCount: 1,
           createdAt: FieldValue.serverTimestamp(),
           features: {
-            aiSummary: false,
-            brandedPdfs: false,
-            buyerPortal: false,
-            apiAccess: false,
-            customWorkflows: false,
-            dedicatedSupport: false,
-            multiLanguage: false,
+            aiSummary: true,
+            brandedPdfs: true,
+            buyerPortal: true,
+            apiAccess: true,
+            customWorkflows: true,
+            dedicatedSupport: true,
+            multiLanguage: true,
           },
         });
     } else {

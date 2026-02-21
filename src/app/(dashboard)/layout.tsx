@@ -164,7 +164,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 {organization?.name || "Your Organisation"}
               </p>
               <p className="text-xs text-zinc-400 capitalize">
-                {organization?.tier || "starter"} plan
+                {organization?.tier || "free"} plan
               </p>
             </div>
           </div>

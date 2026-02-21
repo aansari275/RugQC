@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     if (!orgId) {
       // Not yet onboarded — return starter defaults
       return NextResponse.json({
-        tier: "starter",
+        tier: "free",
         status: "active",
         subscriptionId: null,
         razorpayStatus: null,
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
 
     if (!subDoc.exists) {
       return NextResponse.json({
-        tier: "starter",
+        tier: "free",
         status: "active",
         subscriptionId: null,
         razorpayStatus: null,
@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
     const data = subDoc.data()!;
 
     return NextResponse.json({
-      tier: data.tier || "starter",
+      tier: data.tier || "free",
       status: data.status || "active",
       subscriptionId: data.razorpaySubscriptionId || null,
       razorpayStatus: data.razorpayStatus || null,

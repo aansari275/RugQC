@@ -44,7 +44,7 @@ export interface OrgSettings {
 // Subscription Types
 // ==========================================
 
-export type SubscriptionTier = "starter" | "growth" | "professional" | "enterprise";
+export type SubscriptionTier = "free" | "starter" | "growth";
 
 export interface Subscription {
   orgId: string;
@@ -70,67 +70,39 @@ export interface SubscriptionFeatures {
   multiLanguage: boolean;
 }
 
+const ALL_FEATURES_ENABLED: SubscriptionFeatures = {
+  aiSummary: true,
+  brandedPdfs: true,
+  buyerPortal: true,
+  apiAccess: true,
+  customWorkflows: true,
+  dedicatedSupport: true,
+  multiLanguage: true,
+};
+
 export const TIER_LIMITS: Record<SubscriptionTier, {
   inspections: number;
   users: number;
   price: number;
   features: SubscriptionFeatures;
 }> = {
-  starter: {
+  free: {
     inspections: 15,
-    users: 1,
+    users: 999999,
     price: 0,
-    features: {
-      aiSummary: false,
-      brandedPdfs: false,
-      buyerPortal: false,
-      apiAccess: false,
-      customWorkflows: false,
-      dedicatedSupport: false,
-      multiLanguage: false,
-    },
+    features: ALL_FEATURES_ENABLED,
+  },
+  starter: {
+    inspections: 30,
+    users: 999999,
+    price: 2999,
+    features: ALL_FEATURES_ENABLED,
   },
   growth: {
-    inspections: 100,
-    users: 5,
-    price: 6499,
-    features: {
-      aiSummary: true,
-      brandedPdfs: true,
-      buyerPortal: false,
-      apiAccess: false,
-      customWorkflows: false,
-      dedicatedSupport: false,
-      multiLanguage: false,
-    },
-  },
-  professional: {
-    inspections: 500,
-    users: 20,
-    price: 16499,
-    features: {
-      aiSummary: true,
-      brandedPdfs: true,
-      buyerPortal: true,
-      apiAccess: true,
-      customWorkflows: false,
-      dedicatedSupport: false,
-      multiLanguage: true,
-    },
-  },
-  enterprise: {
-    inspections: Infinity,
-    users: Infinity,
-    price: 41499,
-    features: {
-      aiSummary: true,
-      brandedPdfs: true,
-      buyerPortal: true,
-      apiAccess: true,
-      customWorkflows: true,
-      dedicatedSupport: true,
-      multiLanguage: true,
-    },
+    inspections: 50,
+    users: 999999,
+    price: 6999,
+    features: ALL_FEATURES_ENABLED,
   },
 };
 
@@ -144,6 +116,7 @@ export type InspectionResult = "pass" | "fail" | "pending";
 export type RiskScore = "green" | "amber" | "red";
 export type OwnerAction = "ship" | "hold" | "rework";
 export type AqlLevel = "I" | "II" | "III";
+export type InspectionMode = "aql" | "hundred_percent";
 
 export interface Inspection {
   id: string;
@@ -169,7 +142,8 @@ export interface Inspection {
   minorDefectsFound: number;
   totalDefectsFound: number;
 
-  // AQL
+  // Inspection mode & AQL
+  inspectionMode: InspectionMode;
   aqlLevel: AqlLevel;
   majorAqlLimit: number;
   minorAqlLimit: number;

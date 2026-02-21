@@ -52,10 +52,9 @@ export function formatPrice(amount: number, currency: Currency): string {
  * Plan prices per currency.
  */
 export const PLAN_PRICES: Record<
-  "growth" | "professional" | "enterprise",
+  "starter" | "growth",
   Record<Currency, number>
 > = {
-  growth: { INR: 6499, USD: 79 },
-  professional: { INR: 16499, USD: 199 },
-  enterprise: { INR: 41499, USD: 499 },
+  starter: { INR: 2999, USD: 35 },
+  growth: { INR: 6999, USD: 85 },
 };

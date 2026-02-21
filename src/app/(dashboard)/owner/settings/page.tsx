@@ -14,7 +14,6 @@ import {
   Check,
   Zap,
   TrendingUp,
-  Crown,
   Sparkles,
   X,
 } from "lucide-react";
@@ -33,7 +32,7 @@ import { createSubscription, openCheckout } from "@/lib/razorpay";
 // Types
 // ==========================================
 
-type PlanKey = "growth" | "professional" | "enterprise";
+type PlanKey = "starter" | "growth";
 
 interface PlanConfig {
   key: PlanKey;
@@ -51,51 +50,34 @@ interface PlanConfig {
 
 const PLANS: PlanConfig[] = [
   {
-    key: "growth",
-    name: "Growth",
+    key: "starter",
+    name: "Starter",
     icon: <TrendingUp className="h-5 w-5 text-emerald-600" />,
-    inspections: "100/month",
-    users: "Up to 5",
-    features: [
-      "100 inspections per month",
-      "5 team members",
-      "AI-generated summaries",
-      "Branded PDF reports",
-      "Email notifications",
-      "Full inspection history",
-    ],
-  },
-  {
-    key: "professional",
-    name: "Professional",
-    icon: <Zap className="h-5 w-5 text-violet-600" />,
-    inspections: "500/month",
-    users: "Up to 20",
-    highlight: true,
-    features: [
-      "500 inspections per month",
-      "20 team members",
-      "Everything in Growth",
-      "Buyer portal access",
-      "API access",
-      "Multi-language reports",
-      "Priority support",
-    ],
-  },
-  {
-    key: "enterprise",
-    name: "Enterprise",
-    icon: <Crown className="h-5 w-5 text-amber-500" />,
-    inspections: "Unlimited",
+    inspections: "30/month",
     users: "Unlimited",
     features: [
-      "Unlimited inspections",
+      "30 inspections per month",
       "Unlimited team members",
-      "Everything in Professional",
-      "Custom QC workflows",
-      "Dedicated account manager",
-      "Custom integrations",
-      "SLA guarantee",
+      "All inspection types (AQL + 100%)",
+      "Branded PDF reports with logo",
+      "Email reports on submit",
+      "Analytics dashboard",
+    ],
+  },
+  {
+    key: "growth",
+    name: "Growth",
+    icon: <Zap className="h-5 w-5 text-emerald-600" />,
+    inspections: "50/month",
+    users: "Unlimited",
+    highlight: true,
+    features: [
+      "50 inspections per month",
+      "Unlimited team members",
+      "All inspection types (AQL + 100%)",
+      "Branded PDF reports with logo",
+      "Email reports on submit",
+      "Analytics dashboard",
     ],
   },
 ];
@@ -308,7 +290,7 @@ export default function SettingsPage() {
     [user, refreshOrganization]
   );
 
-  const currentTier = subscription?.tier || "starter";
+  const currentTier = subscription?.tier || "free";
 
   return (
     <div className="min-h-screen">
@@ -386,7 +368,7 @@ export default function SettingsPage() {
                   inspections used this month
                 </p>
               </div>
-              {currentTier !== "enterprise" && (
+              {currentTier !== "growth" && (
                 <p className="text-xs text-zinc-500">
                   Scroll down to upgrade
                 </p>
@@ -414,7 +396,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* Upgrade Plans */}
-        {currentTier !== "enterprise" && (
+        {currentTier !== "growth" && (
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -475,7 +457,7 @@ export default function SettingsPage() {
               )}
 
               {/* Plan cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                 {PLANS.map((plan) => (
                   <PlanCard
                     key={plan.key}

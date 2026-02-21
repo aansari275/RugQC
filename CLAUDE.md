@@ -89,10 +89,11 @@ Go to **Settings** → **Load Demo Data** to populate:
 
 | Tier | Price | Inspections/mo | Users |
 |------|-------|----------------|-------|
-| Starter | Free | 15 | 1 |
-| Growth | ₹6,499/mo | 100 | 5 |
-| Professional | ₹16,499/mo | 500 | 20 |
-| Enterprise | ₹41,499/mo | Unlimited | Unlimited |
+| Free | ₹0 | 15 | Unlimited |
+| Starter | ₹2,999/mo | 30 | Unlimited |
+| Growth | ₹6,999/mo | 50 | Unlimited |
+
+All tiers include all features. Only inspection volume differs.
 
 ## Running Locally
 

@@ -2,9 +2,57 @@ import Link from "next/link";
 import Image from "next/image";
 import { ClipboardCheck, ArrowRight, Camera, Mail, Share2, TrendingUp, Download, FileText, Zap, Tags, Eye, ShieldCheck, ImagePlus, Calculator, Check } from "lucide-react";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "RugQC",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description:
+    "Digital QC inspection platform for rug and carpet manufacturers. Replace paper checklists with photo-based inspections, automated PDF reports, and real-time analytics.",
+  url: "https://rugqc.netlify.app",
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free",
+      price: "0",
+      priceCurrency: "INR",
+      description: "15 inspections per month, all features included",
+    },
+    {
+      "@type": "Offer",
+      name: "Starter",
+      price: "2999",
+      priceCurrency: "INR",
+      description: "30 inspections per month, all features included",
+    },
+    {
+      "@type": "Offer",
+      name: "Growth",
+      price: "6999",
+      priceCurrency: "INR",
+      description: "50 inspections per month, all features included",
+    },
+  ],
+  featureList: [
+    "AQL Sampling Inspection",
+    "100% Inspection Mode",
+    "Branded PDF Reports",
+    "Photo Documentation",
+    "Custom Defect Codes",
+    "Email Reports on Submit",
+    "Analytics Dashboard",
+    "Unlimited Team Members",
+  ],
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-zinc-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-zinc-100 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
@@ -15,6 +63,12 @@ export default function Home() {
             <span className="text-xl font-bold">RugQC</span>
           </Link>
           <div className="flex items-center gap-3">
+            <Link
+              className="hidden text-sm font-medium text-zinc-600 hover:text-emerald-600 transition-colors md:block"
+              href="/blog"
+            >
+              Blog
+            </Link>
             <a
               className="hidden items-center gap-1.5 text-sm font-medium text-zinc-600 hover:text-emerald-600 transition-colors md:flex"
               href="/sample-report.pdf"
@@ -250,15 +304,15 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* AQL auto-calc */}
+              {/* AQL or 100% inspection */}
               <div className="rounded-2xl bg-white p-7 border border-zinc-200 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50">
                   <Calculator className="h-6 w-6 text-emerald-600" />
                 </div>
-                <h3 className="mt-5 text-lg font-semibold">AQL auto-calculated</h3>
+                <h3 className="mt-5 text-lg font-semibold">AQL or 100% inspection</h3>
                 <p className="mt-2 text-sm text-zinc-500 leading-relaxed">
-                  Enter lot size, pick your AQL level. Sample size, accept/reject numbers, and pass/fail result
-                  are calculated automatically. No room for error.
+                  Choose AQL sampling with auto-calculated limits, or go full 100% inspection for zero-tolerance orders.
+                  Both modes built in. You pick what fits the shipment.
                 </p>
               </div>
 
@@ -315,7 +369,7 @@ export default function Home() {
                     "Your company logo on every report",
                     "Photos of every defect with your custom defect names",
                     "Standardized checking parameters across all inspectors",
-                    "AQL compliance auto-calculated",
+                    "AQL sampling or 100% inspection, your choice",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100">
@@ -451,7 +505,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
               {/* Free */}
               <div className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
                 <div className="mb-6">
@@ -462,11 +516,12 @@ export default function Home() {
                   <p className="mt-2 text-sm text-zinc-500">15 inspections/mo</p>
                 </div>
                 <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types (AQL + 100%)</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Branded PDF reports with your logo</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email reports on submit</li>
                   <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
                   <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Unlimited users</li>
                 </ul>
                 <Link
                   href="/login"
@@ -485,14 +540,15 @@ export default function Home() {
                     <span className="text-4xl font-bold">₹2,999</span>
                     <span className="text-sm text-zinc-500">/mo</span>
                   </div>
-                  <p className="mt-2 text-sm text-zinc-500">100 inspections/mo</p>
+                  <p className="mt-2 text-sm text-zinc-500">30 inspections/mo</p>
                 </div>
                 <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types (AQL + 100%)</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Branded PDF reports with your logo</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email reports on submit</li>
                   <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
                   <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Unlimited users</li>
                 </ul>
                 <Link
                   href="/login"
@@ -513,14 +569,15 @@ export default function Home() {
                     <span className="text-4xl font-bold">₹6,999</span>
                     <span className="text-sm text-zinc-500">/mo</span>
                   </div>
-                  <p className="mt-2 text-sm text-zinc-500">300 inspections/mo</p>
+                  <p className="mt-2 text-sm text-zinc-500">50 inspections/mo</p>
                 </div>
                 <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types (AQL + 100%)</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Branded PDF reports with your logo</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email reports on submit</li>
                   <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
                   <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Unlimited users</li>
                 </ul>
                 <Link
                   href="/login"
@@ -529,35 +586,10 @@ export default function Home() {
                   Start trial
                 </Link>
               </div>
-
-              {/* Pro */}
-              <div className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold">Pro</h3>
-                  <div className="mt-3 flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">₹12,999</span>
-                    <span className="text-sm text-zinc-500">/mo</span>
-                  </div>
-                  <p className="mt-2 text-sm text-zinc-500">Unlimited inspections</p>
-                </div>
-                <ul className="mb-8 flex-1 space-y-3 text-sm text-zinc-600">
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> All inspection types</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom logo on reports</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Email PDF reports</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Custom defect codes</li>
-                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> Analytics dashboard</li>
-                </ul>
-                <Link
-                  href="/login"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50 transition-all"
-                >
-                  Start trial
-                </Link>
-              </div>
             </div>
 
             <p className="mt-8 text-center text-sm text-zinc-400">
-              All plans include unlimited users. Upgrade, downgrade, or cancel anytime.
+              Every plan includes all features and unlimited users. Only inspection volume differs.
             </p>
           </div>
         </section>

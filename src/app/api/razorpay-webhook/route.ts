@@ -23,6 +23,16 @@ import { FieldValue } from "firebase-admin/firestore";
 // Tier limits mapping
 // ==========================================
 
+const ALL_FEATURES = {
+  aiSummary: true,
+  brandedPdfs: true,
+  buyerPortal: true,
+  apiAccess: true,
+  customWorkflows: true,
+  dedicatedSupport: true,
+  multiLanguage: true,
+};
+
 const TIER_LIMITS: Record<
   string,
   {
@@ -31,57 +41,20 @@ const TIER_LIMITS: Record<
     features: Record<string, boolean>;
   }
 > = {
-  starter: {
+  free: {
     inspectionsLimit: 15,
-    usersLimit: 1,
-    features: {
-      aiSummary: false,
-      brandedPdfs: false,
-      buyerPortal: false,
-      apiAccess: false,
-      customWorkflows: false,
-      dedicatedSupport: false,
-      multiLanguage: false,
-    },
+    usersLimit: 999999,
+    features: ALL_FEATURES,
+  },
+  starter: {
+    inspectionsLimit: 30,
+    usersLimit: 999999,
+    features: ALL_FEATURES,
   },
   growth: {
-    inspectionsLimit: 100,
-    usersLimit: 5,
-    features: {
-      aiSummary: true,
-      brandedPdfs: true,
-      buyerPortal: false,
-      apiAccess: false,
-      customWorkflows: false,
-      dedicatedSupport: false,
-      multiLanguage: false,
-    },
-  },
-  professional: {
-    inspectionsLimit: 500,
-    usersLimit: 20,
-    features: {
-      aiSummary: true,
-      brandedPdfs: true,
-      buyerPortal: true,
-      apiAccess: true,
-      customWorkflows: false,
-      dedicatedSupport: false,
-      multiLanguage: true,
-    },
-  },
-  enterprise: {
-    inspectionsLimit: 999999,
+    inspectionsLimit: 50,
     usersLimit: 999999,
-    features: {
-      aiSummary: true,
-      brandedPdfs: true,
-      buyerPortal: true,
-      apiAccess: true,
-      customWorkflows: true,
-      dedicatedSupport: true,
-      multiLanguage: true,
-    },
+    features: ALL_FEATURES,
   },
 };
 
@@ -125,7 +98,7 @@ async function upgradeTier(
   resetUsage: boolean
 ) {
   const db = getAdminDb();
-  const limits = TIER_LIMITS[tier] || TIER_LIMITS.starter;
+  const limits = TIER_LIMITS[tier] || TIER_LIMITS.free;
 
   const update: Record<string, unknown> = {
     tier,
@@ -172,11 +145,11 @@ async function downgradeTier(
   razorpayStatus: string
 ) {
   const db = getAdminDb();
-  const limits = TIER_LIMITS.starter;
+  const limits = TIER_LIMITS.free;
 
   await db.collection("subscriptions").doc(orgId).set(
     {
-      tier: "starter",
+      tier: "free",
       status: "cancelled",
       razorpayStatus,
       razorpaySubscriptionId: subscriptionId,
@@ -192,7 +165,7 @@ async function downgradeTier(
   const orgRef = db.collection("orgs").doc(orgId);
   const orgDoc = await orgRef.get();
   if (orgDoc.exists) {
-    await orgRef.update({ tier: "starter", updatedAt: FieldValue.serverTimestamp() });
+    await orgRef.update({ tier: "free", updatedAt: FieldValue.serverTimestamp() });
   }
 }
 
@@ -245,7 +218,7 @@ export async function POST(request: NextRequest) {
   const subscriptionId = entity.id || "";
   const notes = entity.notes || {};
   const orgId = notes.orgId;
-  const tier = notes.tier || "starter";
+  const tier = notes.tier || "free";
   const razorpayStatus = entity.status || "";
 
   if (!orgId) {

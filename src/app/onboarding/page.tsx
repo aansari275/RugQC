@@ -54,37 +54,29 @@ const PLAN_DISPLAY: {
   popular?: boolean;
 }[] = [
   {
-    tier: "starter",
-    label: "Starter",
+    tier: "free",
+    label: "Free",
     icon: <ClipboardCheck className="h-5 w-5" />,
     color: "text-zinc-600",
     bgColor: "bg-zinc-50",
     borderColor: "border-zinc-200",
   },
   {
-    tier: "growth",
-    label: "Growth",
+    tier: "starter",
+    label: "Starter",
     icon: <Zap className="h-5 w-5" />,
     color: "text-emerald-600",
     bgColor: "bg-emerald-50",
     borderColor: "border-emerald-200",
-    popular: true,
   },
   {
-    tier: "professional",
-    label: "Professional",
-    icon: <BarChart3 className="h-5 w-5" />,
+    tier: "growth",
+    label: "Growth",
+    icon: <Star className="h-5 w-5" />,
     color: "text-teal-600",
     bgColor: "bg-teal-50",
     borderColor: "border-teal-200",
-  },
-  {
-    tier: "enterprise",
-    label: "Enterprise",
-    icon: <Star className="h-5 w-5" />,
-    color: "text-violet-600",
-    bgColor: "bg-violet-50",
-    borderColor: "border-violet-200",
+    popular: true,
   },
 ];
 
@@ -426,7 +418,7 @@ export default function OnboardingPage() {
   const [step, setStep] = useState<Step>("org");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [selectedTier, setSelectedTier] = useState<SubscriptionTier>("starter");
+  const [selectedTier, setSelectedTier] = useState<SubscriptionTier>("free");
 
   const [formData, setFormData] = useState<OrgFormData>({
     companyName: "",
@@ -458,7 +450,7 @@ export default function OnboardingPage() {
       const defaultSettings: OrgSettings = {
         defaultInspectionType: "final",
         emailDistribution: [orgEmail],
-        autoAiSummary: selectedTier !== "starter",
+        autoAiSummary: true,
         defaultAqlLevel: "II",
       };
 
@@ -503,7 +495,7 @@ export default function OnboardingPage() {
         billingCycle: "monthly",
         currentPeriodStart: now,
         currentPeriodEnd: endDate,
-        status: selectedTier === "starter" ? "active" : "trialing",
+        status: selectedTier === "free" ? "active" : "trialing",
       });
 
       // Step 4: Refresh auth context so user is loaded

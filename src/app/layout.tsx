@@ -14,24 +14,70 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RugQC - AI-Powered QC Inspection Platform",
+  title: {
+    default: "RugQC - Digital QC Inspection Platform for Rug & Carpet Manufacturers",
+    template: "%s | RugQC",
+  },
   description:
-    "Stop reviewing 50 reports to find 3 problems. RugQC shows you only the inspections that need your attention, with AI-generated summaries and risk scores.",
+    "Replace paper checklists and Excel reports with digital QC inspections. Your inspector snaps photos on the shop floor, you get a branded PDF report instantly. AQL sampling and 100% inspection modes built in.",
   keywords: [
-    "QC inspection",
+    "QC inspection software",
     "quality control",
     "textile inspection",
     "rug inspection",
     "carpet inspection",
-    "AQL",
-    "inspection software",
-    "quality management",
+    "AQL inspection",
+    "100 percent inspection",
+    "inspection report software",
+    "quality management system",
+    "factory inspection app",
+    "rug quality control",
+    "carpet QC",
+    "textile QC software",
+    "digital inspection",
+    "inspection checklist app",
   ],
   authors: [{ name: "RugQC" }],
+  creator: "RugQC",
+  publisher: "RugQC",
+  metadataBase: new URL("https://rugqc.netlify.app"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "RugQC - AI-Powered QC Inspection Platform",
-    description: "Stop reviewing 50 reports to find 3 problems. Exception-only workflow for busy owners.",
+    title: "RugQC - Digital QC Inspection for Rug & Carpet Manufacturers",
+    description:
+      "Your inspector snaps photos on the shop floor. You get the report in your inbox. No more Excel, no more delays. AQL and 100% inspection modes built in.",
+    url: "https://rugqc.netlify.app",
+    siteName: "RugQC",
     type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "RugQC - Digital QC Inspection Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RugQC - Digital QC Inspection for Rug & Carpet Manufacturers",
+    description:
+      "Replace paper checklists with digital inspections. Inspector submits on shop floor, report lands in your inbox.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

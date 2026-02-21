@@ -137,7 +137,7 @@ export function DashboardSidebar() {
                 {organization?.name || "Your Organization"}
               </p>
               <p className="text-xs text-zinc-500 capitalize">
-                {organization?.tier || "starter"} plan
+                {organization?.tier || "free"} plan
               </p>
             </div>
           </div>
