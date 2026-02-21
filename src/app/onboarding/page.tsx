@@ -262,7 +262,7 @@ function PlanStep({ selectedTier, onSelect, onNext, onBack, isLoading }: PlanSte
   };
 
   const formatLimit = (n: number) => {
-    if (n === Infinity) return "Unlimited";
+    if (n === Infinity || n >= 999999) return "Unlimited";
     return n.toString();
   };
 
