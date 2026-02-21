@@ -602,6 +602,7 @@ export async function POST(request: NextRequest) {
         location,
         lotSize: insp.lotSize,
         sampleSize: insp.sampleSize,
+        inspectionMode: "aql",
         aqlLevel: insp.aqlLevel,
         majorDefectsFound: insp.majorDefectsFound,
         minorDefectsFound: insp.minorDefectsFound,

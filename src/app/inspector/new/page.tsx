@@ -38,6 +38,7 @@ import {
 import { calculateAQLResult, generateInspectionId } from "@/lib/utils";
 import type {
   InspectionType,
+  InspectionMode,
   AqlLevel,
   ChecklistItem,
   DEFAULT_CHECKLIST_ITEMS,
@@ -58,6 +59,7 @@ interface FormData {
   poNumber: string;
   lotSize: number;
   location: string;
+  inspectionMode: InspectionMode;
   aqlLevel: AqlLevel;
 }
 
@@ -405,24 +407,57 @@ function DetailsStep({
         </div>
       </div>
 
-      {/* Lot Size and AQL */}
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <Label htmlFor="lotSize">Lot Size (pcs) *</Label>
-          <Input
-            id="lotSize"
-            type="number"
-            placeholder="e.g., 500"
-            value={formData.lotSize || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, lotSize: parseInt(e.target.value) || 0 })
-            }
-            className={errors.lotSize ? "border-red-500" : ""}
-          />
-          {errors.lotSize && (
-            <p className="mt-1 text-xs text-red-600">{errors.lotSize}</p>
-          )}
+      {/* Lot Size */}
+      <div>
+        <Label htmlFor="lotSize">Lot Size (pcs) *</Label>
+        <Input
+          id="lotSize"
+          type="number"
+          placeholder="e.g., 500"
+          value={formData.lotSize || ""}
+          onChange={(e) =>
+            setFormData({ ...formData, lotSize: parseInt(e.target.value) || 0 })
+          }
+          className={errors.lotSize ? "border-red-500" : ""}
+        />
+        {errors.lotSize && (
+          <p className="mt-1 text-xs text-red-600">{errors.lotSize}</p>
+        )}
+      </div>
+
+      {/* Inspection Mode */}
+      <div>
+        <Label>Inspection Mode</Label>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, inspectionMode: "aql" })}
+            className={`rounded-xl border-2 p-4 text-left transition-all ${
+              formData.inspectionMode === "aql"
+                ? "border-emerald-500 bg-emerald-50"
+                : "border-zinc-200 hover:border-zinc-300"
+            }`}
+          >
+            <p className="text-sm font-semibold text-zinc-900">AQL Sampling</p>
+            <p className="mt-1 text-xs text-zinc-500">Statistical sampling per ANSI Z1.4</p>
+          </button>
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, inspectionMode: "hundred_percent" })}
+            className={`rounded-xl border-2 p-4 text-left transition-all ${
+              formData.inspectionMode === "hundred_percent"
+                ? "border-emerald-500 bg-emerald-50"
+                : "border-zinc-200 hover:border-zinc-300"
+            }`}
+          >
+            <p className="text-sm font-semibold text-zinc-900">100% Inspection</p>
+            <p className="mt-1 text-xs text-zinc-500">Check every piece in the lot</p>
+          </button>
         </div>
+      </div>
+
+      {/* AQL Level — only for AQL mode */}
+      {formData.inspectionMode === "aql" && (
         <div>
           <Label htmlFor="aqlLevel">AQL Level</Label>
           <Select
@@ -441,7 +476,7 @@ function DetailsStep({
             </SelectContent>
           </Select>
         </div>
-      </div>
+      )}
 
       {/* Location */}
       <div>
@@ -484,7 +519,10 @@ interface ConfirmStepProps {
 }
 
 function ConfirmStep({ formData, onBack, onCreate, isLoading }: ConfirmStepProps) {
-  const aqlResult = calculateAQLResult(formData.lotSize, formData.aqlLevel || "II");
+  const isHundredPercent = formData.inspectionMode === "hundred_percent";
+  const aqlResult = isHundredPercent
+    ? { sampleSize: formData.lotSize, majorLimit: 0, minorLimit: 0 }
+    : calculateAQLResult(formData.lotSize, formData.aqlLevel || "II");
 
   return (
     <div className="space-y-6">
@@ -524,28 +562,43 @@ function ConfirmStep({ formData, onBack, onCreate, isLoading }: ConfirmStepProps
             <span className="text-sm text-zinc-500">Lot Size</span>
             <span className="text-sm font-medium">{formData.lotSize} pcs</span>
           </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-zinc-500">Mode</span>
+            <span className="text-sm font-medium">
+              {isHundredPercent ? "100% Inspection" : `AQL Level ${formData.aqlLevel}`}
+            </span>
+          </div>
         </CardContent>
       </Card>
 
-      {/* AQL Info */}
+      {/* Inspection Plan Info */}
       {formData.type === "final" && (
-        <Card className="bg-gradient-to-r from-emerald-50 to-cyan-50 border-emerald-200">
+        <Card className={`border ${isHundredPercent ? "bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200" : "bg-gradient-to-r from-emerald-50 to-cyan-50 border-emerald-200"}`}>
           <CardContent className="p-4">
-            <h3 className="text-sm font-medium text-emerald-800">AQL Sampling Plan</h3>
-            <div className="mt-2 grid grid-cols-3 gap-4 text-center">
-              <div>
-                <p className="text-2xl font-bold text-emerald-700">{aqlResult.sampleSize}</p>
-                <p className="text-xs text-emerald-600">Sample Size</p>
+            <h3 className={`text-sm font-medium ${isHundredPercent ? "text-blue-800" : "text-emerald-800"}`}>
+              {isHundredPercent ? "100% Inspection Plan" : "AQL Sampling Plan"}
+            </h3>
+            {isHundredPercent ? (
+              <div className="mt-2 text-center">
+                <p className="text-2xl font-bold text-blue-700">{formData.lotSize} pcs</p>
+                <p className="text-xs text-blue-600">Every piece will be inspected. Zero tolerance for defects.</p>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-emerald-700">{aqlResult.majorLimit}</p>
-                <p className="text-xs text-emerald-600">Major Limit</p>
+            ) : (
+              <div className="mt-2 grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <p className="text-2xl font-bold text-emerald-700">{aqlResult.sampleSize}</p>
+                  <p className="text-xs text-emerald-600">Sample Size</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-emerald-700">{aqlResult.majorLimit}</p>
+                  <p className="text-xs text-emerald-600">Major Limit</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-emerald-700">{aqlResult.minorLimit}</p>
+                  <p className="text-xs text-emerald-600">Minor Limit</p>
+                </div>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-emerald-700">{aqlResult.minorLimit}</p>
-                <p className="text-xs text-emerald-600">Minor Limit</p>
-              </div>
-            </div>
+            )}
           </CardContent>
         </Card>
       )}
@@ -612,6 +665,7 @@ export default function NewInspectionPage() {
     poNumber: "",
     lotSize: 0,
     location: "",
+    inspectionMode: "aql",
     aqlLevel: "II",
   });
 
@@ -669,8 +723,11 @@ export default function NewInspectionPage() {
     setError("");
 
     try {
-      // Calculate AQL
-      const aqlResult = calculateAQLResult(formData.lotSize, formData.aqlLevel || "II");
+      // Calculate sampling plan
+      const isHundredPercent = formData.inspectionMode === "hundred_percent";
+      const aqlResult = isHundredPercent
+        ? { sampleSize: formData.lotSize, majorLimit: 0, minorLimit: 0 }
+        : calculateAQLResult(formData.lotSize, formData.aqlLevel || "II");
 
       // Create inspection
       const inspectionId = await createInspection(orgId, {
@@ -691,6 +748,7 @@ export default function NewInspectionPage() {
         majorDefectsFound: 0,
         minorDefectsFound: 0,
         totalDefectsFound: 0,
+        inspectionMode: formData.inspectionMode,
         aqlLevel: formData.aqlLevel,
         majorAqlLimit: aqlResult.majorLimit,
         minorAqlLimit: aqlResult.minorLimit,

@@ -129,10 +129,10 @@ function SubmitDialog({
   onConfirm,
   isSubmitting,
 }: SubmitDialogProps) {
-  const aqlResult = calculateAQLResult(
-    inspection.lotSize,
-    inspection.aqlLevel || "II"
-  );
+  const isHundredPercent = inspection.inspectionMode === "hundred_percent";
+  const aqlResult = isHundredPercent
+    ? { sampleSize: inspection.lotSize, majorLimit: 0, minorLimit: 0 }
+    : calculateAQLResult(inspection.lotSize, inspection.aqlLevel || "II");
 
   const riskScore = calculateRiskScore(
     inspection.criticalDefectsFound,
@@ -150,6 +150,8 @@ function SubmitDialog({
 
   const config = riskConfig[riskScore];
 
+  const hasDefects = inspection.majorDefectsFound > 0 || inspection.minorDefectsFound > 0 || inspection.criticalDefectsFound > 0;
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -165,32 +167,51 @@ function SubmitDialog({
           <div className={`rounded-xl p-4 text-center ${config.bgColor}`}>
             <p className={`text-2xl font-bold ${config.color}`}>{config.label}</p>
             <p className="mt-1 text-sm text-zinc-600">
-              {inspection.majorDefectsFound <= aqlResult.majorLimit && inspection.minorDefectsFound <= aqlResult.minorLimit ? "Within AQL limits" : "Exceeds AQL limits"}
+              {isHundredPercent
+                ? (hasDefects ? "Defects found in 100% inspection" : "Zero defects. 100% inspection passed.")
+                : (inspection.majorDefectsFound <= aqlResult.majorLimit && inspection.minorDefectsFound <= aqlResult.minorLimit ? "Within AQL limits" : "Exceeds AQL limits")}
             </p>
           </div>
 
           {/* Summary */}
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
+              <span className="text-zinc-500">Mode</span>
+              <span className="font-medium">{isHundredPercent ? "100% Inspection" : `AQL Level ${inspection.aqlLevel}`}</span>
+            </div>
+            <div className="flex justify-between">
               <span className="text-zinc-500">Lot Size</span>
               <span className="font-medium">{inspection.lotSize} pcs</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-zinc-500">Sample Size</span>
+              <span className="text-zinc-500">{isHundredPercent ? "Pieces Inspected" : "Sample Size"}</span>
               <span className="font-medium">{inspection.sampleSize} pcs</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-zinc-500">Major Defects</span>
-              <span className={`font-medium ${inspection.majorDefectsFound > aqlResult.majorLimit ? "text-red-600" : ""}`}>
-                {inspection.majorDefectsFound} / {aqlResult.majorLimit} limit
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-zinc-500">Minor Defects</span>
-              <span className={`font-medium ${inspection.minorDefectsFound > aqlResult.minorLimit ? "text-red-600" : ""}`}>
-                {inspection.minorDefectsFound} / {aqlResult.minorLimit} limit
-              </span>
-            </div>
+            {isHundredPercent ? (
+              <>
+                <div className="flex justify-between">
+                  <span className="text-zinc-500">Total Defects</span>
+                  <span className={`font-medium ${hasDefects ? "text-red-600" : ""}`}>
+                    {inspection.criticalDefectsFound + inspection.majorDefectsFound + inspection.minorDefectsFound}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-between">
+                  <span className="text-zinc-500">Major Defects</span>
+                  <span className={`font-medium ${inspection.majorDefectsFound > aqlResult.majorLimit ? "text-red-600" : ""}`}>
+                    {inspection.majorDefectsFound} / {aqlResult.majorLimit} limit
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-zinc-500">Minor Defects</span>
+                  <span className={`font-medium ${inspection.minorDefectsFound > aqlResult.minorLimit ? "text-red-600" : ""}`}>
+                    {inspection.minorDefectsFound} / {aqlResult.minorLimit} limit
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -353,10 +374,10 @@ export default function InspectionPage() {
     setIsSubmitting(true);
 
     try {
-      const aqlResult = calculateAQLResult(
-        inspection.lotSize,
-        inspection.aqlLevel || "II"
-      );
+      const isHundredPercent = inspection.inspectionMode === "hundred_percent";
+      const aqlResult = isHundredPercent
+        ? { sampleSize: inspection.lotSize, majorLimit: 0, minorLimit: 0 }
+        : calculateAQLResult(inspection.lotSize, inspection.aqlLevel || "II");
 
       const riskScore = calculateRiskScore(
         defectCounts.critical,
@@ -366,7 +387,9 @@ export default function InspectionPage() {
         aqlResult.minorLimit
       );
 
-      const aqlPassed = defectCounts.major <= aqlResult.majorLimit && defectCounts.minor <= aqlResult.minorLimit;
+      const aqlPassed = isHundredPercent
+        ? (defectCounts.critical === 0 && defectCounts.major === 0 && defectCounts.minor === 0)
+        : (defectCounts.major <= aqlResult.majorLimit && defectCounts.minor <= aqlResult.minorLimit);
 
       await updateInspection(orgId, inspectionId, {
         status: "submitted",
@@ -444,12 +467,12 @@ export default function InspectionPage() {
                 <p className="font-medium">{inspection.lotSize} pcs</p>
               </div>
               <div>
-                <span className="text-zinc-500">Sample Size</span>
+                <span className="text-zinc-500">{inspection.inspectionMode === "hundred_percent" ? "Inspecting" : "Sample Size"}</span>
                 <p className="font-medium">{inspection.sampleSize} pcs</p>
               </div>
               <div>
-                <span className="text-zinc-500">AQL Level</span>
-                <p className="font-medium">{inspection.aqlLevel}</p>
+                <span className="text-zinc-500">Mode</span>
+                <p className="font-medium">{inspection.inspectionMode === "hundred_percent" ? "100%" : `AQL ${inspection.aqlLevel}`}</p>
               </div>
             </div>
           </CardContent>
