@@ -40,7 +40,8 @@ const AuthContext = createContext<AuthContextType | null>(null);
 // Public routes that don't require auth
 // ==========================================
 
-const PUBLIC_ROUTES = ["/", "/login", "/verify", "/pricing", "/about", "/contact"];
+const PUBLIC_ROUTES = ["/", "/login", "/verify", "/pricing", "/about", "/contact", "/blog"];
+const PUBLIC_PREFIXES = ["/blog/"];
 const AUTH_ROUTES = ["/login", "/verify"];
 const ONBOARDING_ROUTE = "/onboarding";
 
@@ -170,7 +171,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     if (state.isLoading) return;
 
-    const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
+    const isPublicRoute = PUBLIC_ROUTES.includes(pathname) || PUBLIC_PREFIXES.some(p => pathname.startsWith(p));
     const isAuthRoute = AUTH_ROUTES.includes(pathname);
     const isOnboardingRoute = pathname === ONBOARDING_ROUTE;
 
