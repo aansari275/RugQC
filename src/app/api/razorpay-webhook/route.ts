@@ -18,6 +18,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { getAdminDb } from "@/lib/firebase-admin";
 import { FieldValue } from "firebase-admin/firestore";
+import { sendSubscriptionEmail } from "@/lib/resend";
 
 // ==========================================
 // Tier limits mapping
@@ -233,6 +234,61 @@ export async function POST(request: NextRequest) {
       case "subscription.activated":
         // Subscription is active for the first time
         await upgradeTier(orgId, tier, subscriptionId, razorpayStatus, false);
+
+        // Send subscription confirmation email (non-blocking)
+        try {
+          const db = getAdminDb();
+          const orgDoc = await db.collection("orgs").doc(orgId).get();
+          const orgData = orgDoc.data();
+
+          // Try org email first, then fall back to owner user's email
+          let recipientEmail = orgData?.email;
+          if (!recipientEmail) {
+            const usersSnap = await db
+              .collection("orgs")
+              .doc(orgId)
+              .collection("users")
+              .where("role", "==", "owner")
+              .limit(1)
+              .get();
+            if (!usersSnap.empty) {
+              recipientEmail = usersSnap.docs[0].data().email;
+            }
+          }
+
+          if (recipientEmail) {
+            const limits = TIER_LIMITS[tier] || TIER_LIMITS.free;
+            const tierLabel = tier.charAt(0).toUpperCase() + tier.slice(1);
+
+            // Determine currency from plan_id
+            const planId = entity.plan_id || "";
+            const isINR = planId.toLowerCase().includes("inr") || !planId.toLowerCase().includes("usd");
+            const currency = isINR ? "\u20B9" : "$";
+
+            // Price mapping
+            const priceMap: Record<string, { inr: string; usd: string }> = {
+              starter: { inr: "2,999", usd: "35" },
+              growth: { inr: "6,999", usd: "85" },
+            };
+            const priceInfo = priceMap[tier] || { inr: "0", usd: "0" };
+            const price = isINR ? priceInfo.inr : priceInfo.usd;
+
+            await sendSubscriptionEmail(recipientEmail, {
+              tierName: tierLabel,
+              price,
+              currency,
+              inspectionsLimit: limits.inspectionsLimit,
+              billingPeriod: "month",
+              companyName: orgData?.name,
+            });
+            console.log(`[razorpay-webhook] Subscription email sent to ${recipientEmail}`);
+          } else {
+            console.warn(`[razorpay-webhook] No email found for org ${orgId}, skipping subscription email`);
+          }
+        } catch (emailErr) {
+          // Email failure should never break the payment flow
+          console.error("[razorpay-webhook] Failed to send subscription email:", emailErr);
+        }
         break;
 
       case "subscription.charged":
