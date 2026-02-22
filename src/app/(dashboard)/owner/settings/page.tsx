@@ -474,6 +474,38 @@ export default function SettingsPage() {
               <p className="text-xs text-zinc-500 text-center mt-4">
                 All plans are billed monthly. Cancel anytime. Secure payments via Razorpay.
               </p>
+
+              {/* Test transaction button */}
+              <div className="mt-4 pt-4 border-t border-dashed border-zinc-200">
+                <button
+                  onClick={async () => {
+                    if (!user) return;
+                    setIsUpgrading(true);
+                    setUpgradeError(null);
+                    try {
+                      const { subscriptionId } = await createSubscription("test_inr");
+                      await openCheckout({
+                        subscriptionId,
+                        user: { name: user.name, email: user.email },
+                        planLabel: "Test",
+                        onSuccess: async () => {
+                          setUpgradeSuccess("Test payment successful! Check your email for confirmation.");
+                          await refreshOrganization();
+                          setIsUpgrading(false);
+                        },
+                        onDismiss: () => setIsUpgrading(false),
+                      });
+                    } catch (err) {
+                      setUpgradeError(err instanceof Error ? err.message : "Test checkout failed");
+                      setIsUpgrading(false);
+                    }
+                  }}
+                  disabled={isUpgrading}
+                  className="w-full text-xs py-2 px-4 rounded-lg border border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors disabled:opacity-50"
+                >
+                  {isUpgrading ? "Processing..." : "Test Transaction (₹5)"}
+                </button>
+              </div>
             </CardContent>
           </Card>
         )}

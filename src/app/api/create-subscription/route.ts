@@ -23,6 +23,7 @@ import { FieldValue } from "firebase-admin/firestore";
 // ==========================================
 
 const PLAN_ENV_MAP: Record<string, string> = {
+  test_inr: "NEXT_PUBLIC_RAZORPAY_PLAN_TEST_INR",
   starter_inr: "NEXT_PUBLIC_RAZORPAY_PLAN_STARTER_INR",
   starter_usd: "NEXT_PUBLIC_RAZORPAY_PLAN_STARTER_USD",
   growth_inr: "NEXT_PUBLIC_RAZORPAY_PLAN_GROWTH_INR",
@@ -34,6 +35,7 @@ const PLAN_ENV_MAP: Record<string, string> = {
 // ==========================================
 
 function tierFromPlanKey(planKey: string): string {
+  if (planKey.startsWith("test")) return "starter";
   if (planKey.startsWith("starter")) return "starter";
   if (planKey.startsWith("growth")) return "growth";
   return "free";

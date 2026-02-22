@@ -599,6 +599,23 @@ export async function addLocation(orgId: string, location: string): Promise<void
 }
 
 // ==========================================
+// Analytics Functions
+// ==========================================
+
+export async function getAllSubmittedInspections(orgId: string): Promise<Inspection[]> {
+  const q = query(
+    collection(getDb(), "orgs", orgId, "inspections"),
+    where("status", "in", ["submitted", "reviewed"]),
+    orderBy("createdAt", "desc")
+  );
+  const querySnap = await getDocs(q);
+  return querySnap.docs.map((doc) => ({
+    id: doc.id,
+    ...convertTimestamps(doc.data()),
+  })) as Inspection[];
+}
+
+// ==========================================
 // Stats Functions
 // ==========================================
 
