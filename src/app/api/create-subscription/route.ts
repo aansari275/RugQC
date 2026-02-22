@@ -62,26 +62,47 @@ function getRazorpayClient(): Razorpay {
 // GET orgId for a Firebase UID
 // ==========================================
 
-async function getOrgIdForUid(uid: string): Promise<string | null> {
+async function getOrgIdForUser(uid: string, email: string): Promise<string | null> {
   const db = getAdminDb();
 
-  // Search across all orgs for the user with this UID
   const orgsSnap = await db.collection("orgs").get();
 
   for (const orgDoc of orgsSnap.docs) {
-    const userDoc = await db
+    // Try 1: look for user doc with UID as document ID
+    const byId = await db
       .collection("orgs")
       .doc(orgDoc.id)
       .collection("users")
       .doc(uid)
       .get();
 
-    if (userDoc.exists) {
-      return orgDoc.id;
+    if (byId.exists) return orgDoc.id;
+
+    // Try 2: query by uid field (stored during onboarding)
+    const byUidField = await db
+      .collection("orgs")
+      .doc(orgDoc.id)
+      .collection("users")
+      .where("uid", "==", uid)
+      .limit(1)
+      .get();
+
+    if (!byUidField.empty) return orgDoc.id;
+
+    // Try 3: query by email field (fallback)
+    if (email) {
+      const byEmail = await db
+        .collection("orgs")
+        .doc(orgDoc.id)
+        .collection("users")
+        .where("email", "==", email.toLowerCase())
+        .limit(1)
+        .get();
+
+      if (!byEmail.empty) return orgDoc.id;
     }
   }
 
-  // Fallback: check if user document has orgId field
   return null;
 }
 
@@ -137,7 +158,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. Get orgId for this user
-    const orgId = await getOrgIdForUid(uid);
+    const orgId = await getOrgIdForUser(uid, email);
     if (!orgId) {
       return NextResponse.json(
         { error: "User organization not found. Please complete onboarding first." },

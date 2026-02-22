@@ -467,6 +467,7 @@ export default function OnboardingPage() {
 
       // Step 2: Create user with "owner" role
       await createUser(orgId, {
+        uid: firebaseUser.uid,
         email: firebaseUser.email,
         name: formData.userName.trim() || firebaseUser.displayName || firebaseUser.email,
         role: "owner" as UserRole,

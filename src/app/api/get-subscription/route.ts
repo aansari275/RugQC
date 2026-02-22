@@ -17,20 +17,40 @@ import { verifyBearerToken, getAdminDb } from "@/lib/firebase-admin";
 // GET orgId for a Firebase UID
 // ==========================================
 
-async function getOrgIdForUid(uid: string): Promise<string | null> {
+async function getOrgIdForUser(uid: string, email: string): Promise<string | null> {
   const db = getAdminDb();
   const orgsSnap = await db.collection("orgs").get();
 
   for (const orgDoc of orgsSnap.docs) {
-    const userDoc = await db
+    // Try 1: doc ID = UID
+    const byId = await db
       .collection("orgs")
       .doc(orgDoc.id)
       .collection("users")
       .doc(uid)
       .get();
+    if (byId.exists) return orgDoc.id;
 
-    if (userDoc.exists) {
-      return orgDoc.id;
+    // Try 2: uid field
+    const byUidField = await db
+      .collection("orgs")
+      .doc(orgDoc.id)
+      .collection("users")
+      .where("uid", "==", uid)
+      .limit(1)
+      .get();
+    if (!byUidField.empty) return orgDoc.id;
+
+    // Try 3: email field
+    if (email) {
+      const byEmail = await db
+        .collection("orgs")
+        .doc(orgDoc.id)
+        .collection("users")
+        .where("email", "==", email.toLowerCase())
+        .limit(1)
+        .get();
+      if (!byEmail.empty) return orgDoc.id;
     }
   }
 
@@ -56,9 +76,10 @@ export async function GET(request: NextRequest) {
     }
 
     const uid = decoded.uid;
+    const email = decoded.email || "";
 
     // 2. Get orgId for this user
-    const orgId = await getOrgIdForUid(uid);
+    const orgId = await getOrgIdForUser(uid, email);
     if (!orgId) {
       // Not yet onboarded — return starter defaults
       return NextResponse.json({
